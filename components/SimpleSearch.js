@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 /**
  * Simple component contains just a search box and a button to press
  * Expects to be passed a prop called 'callback' which it will call on click passing the query in the search box
+ * TODO: Potentially consider an way to ensure it wont run with no query in it
  */
 class SimpleSearch extends React.Component {
     constructor(props) {
