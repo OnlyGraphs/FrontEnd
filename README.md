@@ -6,7 +6,9 @@ This is the front end for the OnlyGraph (Group 14) TTDS Project
 
 # Installation
 
-- Clone the repo, that about it
+- Clone the repo
+- Enter the directory
+- Run `npm install`
 
 # Usage
 
