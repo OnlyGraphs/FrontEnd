@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import { CardContent } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { CardContent, Typography, Card } from '@mui/material';
 
 /**
  * Result component designed to display a single result
@@ -15,9 +13,9 @@ class Result extends React.Component {
     render() {
         var link = "https://simple.wikipedia.org/wiki/" + this.props.title
         return(
-            <Card sx={{width: 1}}>
+            <Card sx={{width: 1}} >
                 <CardContent>
-                    <Typography variant="h4">
+                    <Typography variant="h5">
                         <a href={link} target="_blank" rel="noopener">{this.props.title}</a>
                     </Typography>
                     <p>
