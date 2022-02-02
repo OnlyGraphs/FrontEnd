@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 class SimpleSearch extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {query: ""};
+      this.state = {query: this.props.query};
       this.handleOnChange = this.handleOnChange.bind(this)
       this.handleClick = this.handleClick.bind(this);
       this.enterHunt = this.enterHunt.bind(this)
