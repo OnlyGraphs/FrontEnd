@@ -36,7 +36,7 @@ function Search() {
 
     return (
         <div>
-            <SimpleSearch callback={(val) => {makeRequest(val, router);}}></SimpleSearch>
+            <SimpleSearch callback={(val) => {makeRequest(val, router);}} query={query}></SimpleSearch>
             <ResultsList docs={docs}></ResultsList>
         </div>
     )
@@ -55,7 +55,7 @@ function sortDocuments(n1, n2) {
     return n1.score - n2.score;
 }
 
-
+//Example documents
 var doc1 = {title: "Apple", score: 10, abstract: "Apple is the edible fruit of a number of trees, known for this juicy, green or red fruits. The tree (Malus spp.) is grown worldwide. Its fruit is low-cost, and is harvested all over the world. "}
 var doc2 = {title: "Waterfall", score: 500, abstract: "A waterfall is a place where water rushes down a steep ledge. The water flows from higher land, then it falls down a big step of rock to lower land of softer rock where it will continue on its journey. Usually the lower land is in a gorge. Waterfalls are usually made when a river is young, in places where softer rock is underneath harder rock in the waterfalls "}
 var doc3 = {title: "Venezuela", score: 50, abstract: "Venezuela is a country in northern South America. Its official name is República Bolivariana de Venezuela (Bolivarian Republic of Venezuela). The official language is Spanish, and the capital is Caracas."}

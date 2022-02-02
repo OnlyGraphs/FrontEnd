@@ -2,7 +2,8 @@ import React from 'react';
 import Result from './Result';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import Link from '@mui/material/Link'
 
 /**
  * ResultsList component designed to display a list of results
@@ -16,9 +17,12 @@ import ListItem from '@mui/material/ListItem';
     //Takes in one document object and then builds the relevant components to display that document
     buildResult(doc) {
         return(
-            <div><ListItem button>
+            <div>
+                <Link href={"https://simple.wikipedia.org/wiki/" + doc.title} underline="none" target="_blank" rel="noopener">
+                <ListItemButton>
                     <Result title={doc.title} abstract={doc.abstract}></Result>
-                </ListItem>
+                </ListItemButton>
+                </Link>
                 <Divider />
             </div>
         )
