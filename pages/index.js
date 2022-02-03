@@ -9,7 +9,7 @@ import SimpleSearch from '../components/SimpleSearch';
  */
 function makeRequest(simpleQuery, router) {
   var pathVariable = "/search?query=" + encodeURIComponent(simpleQuery)
-  alert(pathVariable)
+  //alert(pathVariable)
   router.push(pathVariable) //Sends the user to the 'results' page
 }
 

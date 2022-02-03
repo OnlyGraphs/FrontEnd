@@ -2,7 +2,6 @@ import Head from 'next/head'
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { useRouter } from 'next/router'
-import Result from '../components/Result';
 import SimpleSearch from '../components/SimpleSearch';
 import ResultsList from '../components/ResultsList';
 
@@ -47,7 +46,7 @@ function Search() {
  */
 function makeRequest(simpleQuery, router) {
     var pathVariable = "/search?query=" + encodeURIComponent(simpleQuery)
-    alert(pathVariable)
+    //alert(pathVariable)
     router.push(pathVariable) //Sends the user to the 'results' page
 };
 
