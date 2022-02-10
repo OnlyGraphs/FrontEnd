@@ -48,7 +48,7 @@ class SimpleSearch extends React.Component {
       return (
         <div>
             <TextField fullWidth id="outlined-basic" variant="outlined" value={this.state.query} onChange={this.handleOnChange} onKeyPress={this.enterHunt}></TextField>
-            <Button variant="contained" onClick={this.handleClick}>Search</Button>
+            <Button variant="contained" onClick={this.handleClick} style={{float: 'right'}}>Search</Button>
         </div>
       );
     }
