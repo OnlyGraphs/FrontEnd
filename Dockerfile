@@ -5,7 +5,7 @@ ARG TOKEN
 
 RUN git clone https://${TOKEN}@github.com/OnlyGraphs/FrontEnd.git
 
-RUN cd FrontEnd
+WORKDIR /usr/app/FrontEnd
 
 RUN npm install
 
