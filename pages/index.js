@@ -17,14 +17,17 @@ function makeRequest(simpleQuery, router) {
  * Displays the basic homepage that contains just a simple search
  */
 function Home() {
+
   const router = useRouter()
   return (
+    <body>
     <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-      <img src='./static/tempLogo.jpg'width='500' height={456}></img>
+      <video src='./static/output.mp4' width='960' height={540} loop={false} autoPlay={true}></video>
       <br></br>
       <SimpleSearch callback={(val) => {makeRequest(val, router);}}></SimpleSearch>
     </div>
+    </body>
   )
 }
-
+//style={{backgroundColor: "#283a3f"}}
 export default Home
