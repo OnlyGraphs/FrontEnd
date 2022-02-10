@@ -1,10 +1,11 @@
 FROM node:16
 WORKDIR /usr/app/
-ADD package.json ./
-ADD package-lock.json ./
-ADD pages/ ./
-ADD public/ ./
-ADD components/ ./
+
+ARG TOKEN
+
+RUN git clone https://${TOKEN}@github.com/OnlyGraphs/FrontEnd.git
+
+RUN cd FrontEnd
 
 RUN npm install
 
