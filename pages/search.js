@@ -3,7 +3,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { useRouter } from 'next/router'
 import SimpleSearch from '../components/SimpleSearch';
-import ResultsList from '../components/ResultsList';
+import ResultsWindow from '../components/ResultsWindow';
 
 /**
  * This is the 'results' page, as in it takes as URI path parameters that contain the query,
@@ -26,6 +26,8 @@ function Search() {
         uri = uri + "?resultsPerPage=" + resultsPerPage
     }
 
+    //alert(uri)
+
     //results = fetch(uri)
     //Take those results and push them into a results component
 
@@ -36,16 +38,17 @@ function Search() {
     return (
         <div>
             <SimpleSearch callback={(val) => {makeRequest(val, router);}} query={query}></SimpleSearch>
-            <ResultsList docs={docs}></ResultsList>
+            <ResultsWindow docs={docs} page={1} sortby={"lastEdited"} resultsPerPage={"10"}></ResultsWindow>
         </div>
     )
 }
 
 /**
  * This function is given as the callback for the simple search, it takes the query and forms the search query and moves to that page
+ * @todo Allow this to accept page, sortby and results per page
  */
-function makeRequest(simpleQuery, router) {
-    var pathVariable = "/search?query=" + encodeURIComponent(simpleQuery)
+function makeRequest(query, router) {
+    var pathVariable = "/search?query=" + encodeURIComponent(query)
     //alert(pathVariable)
     router.push(pathVariable) //Sends the user to the 'results' page
 };
