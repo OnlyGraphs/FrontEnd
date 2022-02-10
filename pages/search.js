@@ -14,7 +14,7 @@ function Search() {
     const router = useRouter()
     const { query, sortBy, page, resultsPerPage } = router.query
     //NEED TO CHANGE WHAT THE BELOW URI ROOT IS (Something about .env but that's not working for me)
-    var uri = "reallyCoolExample.com/api/v1/search?query=" + query
+    var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/search?query=" + query
 
     if (typeof sortBy !== 'undefined') {
         uri = uri + "?sortBy=" + sortBy
