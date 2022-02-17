@@ -20,13 +20,11 @@ function Home() {
 
   const router = useRouter()
   return (
-    <body>
     <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
       <video src='./static/output.mp4' width='960' height={540} loop={false} autoPlay={true}></video>
       <br></br>
       <SimpleSearch callback={(val) => {makeRequest(val, router);}}></SimpleSearch>
     </div>
-    </body>
   )
 }
 //style={{backgroundColor: "#283a3f"}}
