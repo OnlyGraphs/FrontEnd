@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardContent, Typography, Card } from '@mui/material';
+import { CardContent, Typography, Card, Link } from '@mui/material';
 
 /**
  * Result component designed to display a single result
@@ -13,11 +13,11 @@ class Result extends React.Component {
     render() {
         var link = "https://simple.wikipedia.org/wiki/" + this.props.title
         return(
-            <Card sx={{width: 1}} >
+            <Card sx={{width: 1}} onClick={this.handleClick}>
                 <CardContent>
-                    <Typography variant="h5">
-                        <a href={link} target="_blank" rel="noopener">{this.props.title}</a>
-                    </Typography>
+                    <Link variant="h5" href={link} target="_blank" rel="noopener">
+                        {this.props.title}
+                    </Link>
                     <p>
                         {this.props.abstract}
                     </p>
@@ -26,5 +26,8 @@ class Result extends React.Component {
         )
     }
 
+    handleClick = () => {
+        this.props.onClickCallback(this.props.title)
+    }
 }
 export default Result;

@@ -59,6 +59,7 @@ function Search() {
                     sortby={"lastEdited"} 
                     resultsPerPage={"10"} 
                     callback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
+                    onClickCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                 />
             </div>
         )
@@ -87,9 +88,18 @@ function makeRequest(query, sortBy, page, resultsPerPage, router) {
     if (resultsPerPage != null) {
         uri = uri + "&resultsPerPage=" + resultsPerPage
     }
-    alert(uri)
     router.push(uri)
 };
+
+function returnFeedback(query, pageOfResult, resultTitle) {
+    alert("CLICKED!!!" + "-" + query + "-" + pageOfResult + "-" + resultTitle)
+    var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + query + "&resultPage=" + pageOfResult
+    if (resultTitle != null) {
+        uri = uri + "&choosenResult=" + resultTitle
+    }
+    console.log(uri)
+    fetch(uri)
+}
 
 function sortDocuments(n1, n2) {
     return n1.score - n2.score;

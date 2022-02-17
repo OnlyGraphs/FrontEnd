@@ -15,12 +15,12 @@ import Link from '@mui/material/Link'
     }
 
     //Takes in one document object and then builds the relevant components to display that document
-    buildResult(doc) {
+    buildResult(doc, id) {
         return(
             <div>
                 <Link href={"https://simple.wikipedia.org/wiki/" + doc.title} underline="none" target="_blank" rel="noopener">
                 <ListItemButton>
-                    <Result title={doc.title} abstract={doc.abstract}></Result>
+                    <Result id={id} title={doc.title} abstract={doc.abstract} onClickCallback={this.props.onClickCallback}></Result>
                 </ListItemButton>
                 </Link>
                 <Divider />
@@ -31,7 +31,7 @@ import Link from '@mui/material/Link'
     render() { //The map build the result for each document
         return(
             <List>
-                {this.props.docs.map(doc => this.buildResult(doc))}
+                {this.props.docs.map((doc, i, _) => this.buildResult(doc, i))}
             </List>
         )
     }
