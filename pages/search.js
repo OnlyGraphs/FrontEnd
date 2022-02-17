@@ -18,13 +18,13 @@ function Search() {
     var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/search?query=" + query
 
     if (typeof sortBy !== 'undefined') {
-        uri = uri + "?sortBy=" + sortBy
+        uri = uri + "&sortBy=" + sortBy
     }
     if (typeof page !== 'undefined') {
-        uri = uri + "?page=" + page
+        uri = uri + "&page=" + page
     }
     if (typeof resultsPerPage !== 'undefined') {
-        uri = uri + "?resultsPerPage=" + resultsPerPage
+        uri = uri + "&resultsPerPage=" + resultsPerPage
     }
 
     //Sets variables for client side data fetching
@@ -52,8 +52,14 @@ function Search() {
         docs.reverse()
         return (
             <div>
-                <SimpleSearch callback={(val) => {makeRequest(val, router);}} query={query}></SimpleSearch>
-                <ResultsWindow docs={docs} page={1} sortby={"lastEdited"} resultsPerPage={"10"}></ResultsWindow>
+                <SimpleSearch callback={(val) => {makeRequest(val, null, null, null, router);}} query={query}></SimpleSearch>
+                <ResultsWindow 
+                    docs={docs} 
+                    page={1} 
+                    sortby={"lastEdited"} 
+                    resultsPerPage={"10"} 
+                    callback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
+                />
             </div>
         )
     }
@@ -63,13 +69,26 @@ function Search() {
 }
 
 /**
- * This function is given as the callback for the simple search, it takes the query and forms the search query and moves to that page
+ * This function is given as the callback for components on this page that might initalise a new search either with a new query 
+ * or by changing the other parameters of the search it takes the query (and optionally othe details) and forms the search query and moves to that page
+ * @param query Must be passed
+ * @param sortBy Optional, null if not required
  * @todo Allow this to accept page, sortby and results per page
  */
-function makeRequest(query, router) {
-    var pathVariable = "/search?query=" + encodeURIComponent(query)
-    //alert(pathVariable)
-    router.push(pathVariable) //Sends the user to the 'results' page
+function makeRequest(query, sortBy, page, resultsPerPage, router) {
+    var uri = "/search?query=" + encodeURIComponent(query)
+    //For each of the 3 optional elements they are checked and if not null they are added
+    if (sortBy != null) {
+        uri = uri + "&sortBy=" + sortBy
+    }
+    if (page != null) {
+        uri = uri + "&page=" + page
+    }
+    if (resultsPerPage != null) {
+        uri = uri + "&resultsPerPage=" + resultsPerPage
+    }
+    alert(uri)
+    router.push(uri)
 };
 
 function sortDocuments(n1, n2) {

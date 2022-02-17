@@ -66,23 +66,23 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem } from '@mui/material
     handleBackClick = () => {
         if (this.state.page !== "1") {
             var newPage = (Number(this.state.page) - 1).toString()
-            this.setState({page: newPage})
+            this.setState({page: newPage}, this.props.callback(this.state.sortby, newPage, this.state.resultsPerPage))
         }
     }
 
     handleForwardClick = () => {
         if (this.state.page !== "0") {
             var newPage = (Number(this.state.page) + 1).toString()
-            this.setState({page: newPage})
+            this.setState({page: newPage}, this.props.callback(this.state.sortby, newPage, this.state.resultsPerPage))
         }
     }
 
     handleOrderChange = (event) => {
-        this.setState({sortby: event.target.value})
+        this.setState({sortby: event.target.value}, this.props.callback(event.target.value, this.state.page, this.state.resultsPerPage))
     }
 
     handlePerPageChange = (event) => {
-        this.setState({resultsPerPage: event.target.value})
+        this.setState({resultsPerPage: event.target.value}, this.props.callback(this.state.sortby, this.state.page, event.target.value))
     }
 
 }
