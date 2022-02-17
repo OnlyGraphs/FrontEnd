@@ -40,7 +40,7 @@ function Search() {
           setData(data)
           setLoading(false)
         })
-    }, [])
+    }, [router.query])
   
     //Loading Screen returned here (perhaps make this better)
     if (isLoading) return <p>Loading...</p>
