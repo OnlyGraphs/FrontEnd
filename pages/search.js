@@ -33,7 +33,7 @@ function Search() {
     const { query, sortBy, page, resultsPerPage } = router.query //Gets parameters
     
     //The below line and 3 if statements take the parameters out of the URI and build them into a request for the backend
-    var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/search?query=" + query
+    var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/search?query=" +  encodeURIComponent(query)
 
     if (typeof sortBy !== 'undefined') {
         uri = uri + "&sortBy=" + sortBy
