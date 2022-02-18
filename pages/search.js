@@ -12,7 +12,25 @@ import ResultsWindow from '../components/ResultsWindow';
  */
 function Search() {
     const router = useRouter() //Gets up the router object to get the data about the URI parameter
-    const { query, sortBy, page, resultsPerPage } = router.query //Gets parameter
+
+    //The below useEffect is used to track if the URI changes (which might indicate a user making a new query which requires feedback)
+    //Is this actually a good way to work things out?
+    useEffect(() => {
+        const handleRouteChange = (url, { shallow }) => {
+            var newQuery = url //new URLSearchParams(url).get("query")
+            var currentQuery = window.location.href //new URLSearchParams(window.location.href).get("query")
+            if (newQuery != currentQuery) {
+                console.log("New Query: " + currentQuery + "->" + newQuery)
+            } else {
+                console.log("Same Query" + currentQuery + "->" + newQuery)
+            }
+        }
+    
+        router.events.on('routeChangeStart', handleRouteChange)
+      }, [])
+    
+
+    const { query, sortBy, page, resultsPerPage } = router.query //Gets parameters
     
     //The below line and 3 if statements take the parameters out of the URI and build them into a request for the backend
     var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/search?query=" + query
@@ -54,10 +72,10 @@ function Search() {
             <div>
                 <SimpleSearch callback={(val) => {makeRequest(val, null, null, null, router);}} query={query}></SimpleSearch>
                 <ResultsWindow 
-                    docs={docs} 
-                    page={1} 
-                    sortby={"lastEdited"} 
-                    resultsPerPage={"10"} 
+                    docs={docs} //DO Stuff
+                    page={page ? page : 1} 
+                    sortby={sortBy ? sortBy : "relevance"} 
+                    resultsPerPage={resultsPerPage ? resultsPerPage : "10"} 
                     callback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
                     onClickCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                 />
