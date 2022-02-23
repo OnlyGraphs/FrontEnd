@@ -72,10 +72,10 @@ function Search() {
             <div>
                 <SimpleSearch callback={(val) => {makeRequest(val, null, null, null, router);}} query={query}></SimpleSearch>
                 <ResultsWindow 
-                    docs={docs} //DO Stuff
-                    page={page ? page : 1} 
-                    sortby={sortBy ? sortBy : "relevance"} 
-                    resultsPerPage={resultsPerPage ? resultsPerPage : "10"} 
+                    docs={docs}
+                    page={page ? page : 1}
+                    sortby={sortBy ? sortBy : "relevance"}
+                    resultsPerPage={resultsPerPage ? resultsPerPage : "20"}
                     callback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
                     onClickCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                 />
@@ -111,7 +111,7 @@ function makeRequest(query, sortBy, page, resultsPerPage, router) {
 
 function returnFeedback(query, pageOfResult, resultTitle) {
     alert("CLICKED!!!" + "-" + query + "-" + pageOfResult + "-" + resultTitle)
-    var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + query + "&resultPage=" + pageOfResult
+    var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + encodeURIComponent(query) + "&resultPage=" + pageOfResult
     if (resultTitle != null) {
         uri = uri + "&choosenResult=" + resultTitle
     }
