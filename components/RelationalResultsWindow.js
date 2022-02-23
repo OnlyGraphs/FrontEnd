@@ -3,14 +3,6 @@ import {Button, ButtonGroup} from '@mui/material';
 import { Graph } from "react-d3-graph";
 
 
-const data = {
-    nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
-    links: [
-      { source: "Harry", target: "Sally" },
-      { source: "Harry", target: "Alice" },
-    ],
-  };
-
 const graphConfig = {
     directed: true,
     width: 1000
@@ -30,7 +22,7 @@ const graphConfig = {
             <div style={{borderStyle: 'solid'}}>
             <Graph
                 id="graph-id" // id is mandatory
-                data={data}
+                data={this.props.data}
                 config={graphConfig}
             />;
         </div>
