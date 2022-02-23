@@ -13,12 +13,14 @@ import ResultsWindow from '../components/ResultsWindow';
 function Search() {
     const router = useRouter() //Gets up the router object to get the data about the URI parameter
 
-    //The below useEffect is used to track if the URI changes (which might indicate a user making a new query which requires feedback)
-    //Is this actually a good way to work things out?
+    /*
+    //Code that runs on the route change, thought to be useful to gather when moving away to another query
+    //But this has several issues first being that it doesn't know if a result has been picked (hence a new query)
+    //Also it seems to trigger twice once with a new window being null
     useEffect(() => {
         const handleRouteChange = (url, { shallow }) => {
-            var newQuery = url //new URLSearchParams(url).get("query")
-            var currentQuery = window.location.href //new URLSearchParams(window.location.href).get("query")
+            var newQuery = new URLSearchParams(url).get("query")
+            var currentQuery = new URLSearchParams(window.location.href).get("query")
             if (newQuery != currentQuery) {
                 console.log("New Query: " + currentQuery + "->" + newQuery)
             } else {
@@ -28,6 +30,7 @@ function Search() {
     
         router.events.on('routeChangeStart', handleRouteChange)
       }, [])
+      */
     
 
     const { query, sortBy, page, resultsPerPage } = router.query //Gets parameters
@@ -51,13 +54,16 @@ function Search() {
   
     //Gets data from backend
     useEffect(() => {
-      setLoading(true)
-      fetch(uri)
+      if (router.isReady) { //If the URL parameters have been fetched
+        console.log(uri)
+        setLoading(true)
+        fetch(uri)
         .then((res) => res.text())
         .then((data) => {
-          setData(data)
-          setLoading(false)
+            setData(data)
+            setLoading(false)
         })
+      }
     }, [router.query])
   
     //Loading Screen returned here (perhaps make this better)
@@ -110,7 +116,6 @@ function makeRequest(query, sortBy, page, resultsPerPage, router) {
 };
 
 function returnFeedback(query, pageOfResult, resultTitle) {
-    alert("CLICKED!!!" + "-" + query + "-" + pageOfResult + "-" + resultTitle)
     var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + encodeURIComponent(query) + "&resultPage=" + pageOfResult
     if (resultTitle != null) {
         uri = uri + "&choosenResult=" + resultTitle
