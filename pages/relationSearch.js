@@ -2,6 +2,7 @@ import Head from 'next/head'
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Graph } from "react-d3-graph";
+import RelationResults from '../components/RelationResults';
 
 const data = {
     nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
@@ -17,17 +18,11 @@ const graphConfig = {
 }
 
 
-function relationTest() {
+function relationSearch() {
 
     return (
-        <div style={{borderStyle: 'solid'}}>
-            <Graph
-                id="graph-id" // id is mandatory
-                data={data}
-                config={graphConfig}
-            />;
-        </div>
+        <RelationResults></RelationResults>
     )
 }
 
-export default relationTest
+export default relationSearch
