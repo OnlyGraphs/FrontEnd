@@ -17,16 +17,9 @@ const graphConfig = {
 }
 
 /**
- * ResultsWindow component designed to display a list of results and to handle
- * changing the results page and the order in which results are listed
- * Expects to receive in props: 
- * 'docs' a list of Document objects
- * page a int containing the current page
- * sortby a string describing how the results are sorted
- * resultsPerPage containing how many results there are per page
- * @todo Work out how to do a callback
+ * Write this
  */
- class RelationResults extends React.Component {
+ class RelationResultsWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {page: this.props.page, sortby: this.props.sortby, resultsPerPage: this.props.resultsPerPage}
@@ -45,4 +38,4 @@ const graphConfig = {
     }
 }
 
-export default RelationResults
+export default RelationResultsWindow
