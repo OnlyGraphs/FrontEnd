@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, Select, TextField, InputLabel, Typography, Stack } from '@mui/material';
+import { MenuItem, Select, TextField, InputLabel, Typography, Stack, Button } from '@mui/material';
 
 /**
  * Is the component to handle advanced searches, contains loads of boxes for stuff
@@ -10,6 +10,7 @@ class AdvancedSearch extends React.Component {
     super(props);
     this.state = {andBox: "", phraseBox: "", noneBox: "", orBox: "", distWord1: "", distWord2: "", dist: "", structType: "", structQuery: "", finalResult: ""}
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   /**
@@ -17,35 +18,74 @@ class AdvancedSearch extends React.Component {
    * @param {*} event 
    */
   handleClick(event) {
-    if (this.state.query !== "") { //Doesn't allow the search to be done when nothing has been entered
-      this.props.callback(this.state.query)
-    }
+    alert(this.buildFinalResult())
   }
 
   handleChange(event) {
     if (event.target.name == "andBox") {
-      this.setState({andBox: event.target.value}, this.buildFinalResult)
+      this.setState({andBox: event.target.value})
     } else if (event.target.name == "phraseBox") {
-      this.setState({phraseBox: event.target.value}, this.buildFinalResult)
+      this.setState({phraseBox: event.target.value})
     } else if (event.target.name == "noneBox") {
-      this.setState({noneBox: event.target.value}, this.buildFinalResult)
+      this.setState({noneBox: event.target.value})
     } else if (event.target.name == "orBox") {
-      this.setState({orBox: event.target.value}, this.buildFinalResult)
+      this.setState({orBox: event.target.value})
     } else if (event.target.name == "distWord1") {
-      this.setState({distWord1: event.target.value}, this.buildFinalResult)
+      this.setState({distWord1: event.target.value})
     } else if (event.target.name == "distWord2") {
-      this.setState({distWord2: event.target.value}, this.buildFinalResult)
+      this.setState({distWord2: event.target.value})
     } else if (event.target.name == "dist") {
-      this.setState({dist: event.target.value}, this.buildFinalResult)
+      this.setState({dist: event.target.value})
     } else if (event.target.name == "structType") {
-      this.setState({structType: event.target.value}, this.buildFinalResult)
+      this.setState({structType: event.target.value})
     } else if (event.target.name == "structQuery") {
-      this.setState({structQuery: event.target.value}, this.buildFinalResult)
+      this.setState({structQuery: event.target.value})
     }
   }
 
   buildFinalResult() {
-    return ""
+    var individualBoxResults = []
+    if (this.state.andBox != "") {
+      var validTerms = this.state.andBox.split(" ").filter(term => term != "" && term != " ")
+      console.log(validTerms)
+      var andString = this.arrayFold(validTerms, ",AND,")
+      individualBoxResults.push(andString)
+    }
+    if (this.state.phraseBox != "") {
+      individualBoxResults.push("\"" + this.state.phraseBox + "\"")
+    }
+    if (this.state.noneBox != "") {
+      var validTerms = this.state.noneBox.split(" ").filter(term => term != "" && term != " ")
+      var validTerms = validTerms.map(term => "NOT," + term)
+      console.log(validTerms)
+      var notString = this.arrayFold(validTerms, ",AND,")
+      individualBoxResults.push(notString)
+    }
+    if (this.state.orBox != "") {
+      var validTerms = this.state.orBox.split(" ").filter(term => term != "" && term != " ")
+      var ORString = this.arrayFold(validTerms, ",OR,")
+      individualBoxResults.push(ORString)
+    }
+    if (this.state.dist != "" && this.state.distWord1 != "" && this.state.distWord2 != "") {
+      var distString = "#DIST," + this.state.dist + "," + this.state.distWord1 + "," + this.state.distWord2
+      individualBoxResults.push(distString)
+    }
+    if (this.state.structType != "" && this.state.structQuery != "") {
+      var structString = "#" + this.state.structType + "," + this.state.structQuery
+      individualBoxResults.push(structString)
+    }
+    return this.arrayFold(individualBoxResults, ",AND,")
+  }
+
+  arrayFold(array, operator) {
+    var result = ""
+    if (array.length == 1) {
+      return array[0]
+    }
+    for (let i = 0; i < array.length - 1; i++) {
+      result = result + array[i] + operator
+    }
+    return result + array[array.length - 1]
   }
     
     render() {
@@ -80,15 +120,16 @@ class AdvancedSearch extends React.Component {
             <div>
               <InputLabel sx={{mt: 1}} id="structLabel">Structural Element Search</InputLabel>
               <Select sx={{ mt: 2, width: 400 }} name="structType" value={this.state.structType} label="Structural Element" variant="standard" labelId='structLabel' onChange={this.handleChange}>
-                <MenuItem value={"Category"}>Category</MenuItem>
-                <MenuItem value={"Citation"}>Citation</MenuItem>
-                <MenuItem value={"Template (Info Box?)"}>Template (Info Box?)</MenuItem>
-                <MenuItem value={"Title"}>Title</MenuItem>
+                <MenuItem value={"CATEGORY"}>Category</MenuItem>
+                <MenuItem value={"CITATION"}>Citation</MenuItem>
+                <MenuItem value={"INFOBOX_TEMPLATE_NAME"}>Template (Info Box?)</MenuItem>
+                <MenuItem value={"TITLE"}>Title</MenuItem>
               </Select>
               <TextField sx={{ mt: 0, ml: 1, width: 200 }} name="structQuery" value={this.state.structQuery} label="Search Term" variant="standard" onChange={this.handleChange}/>
             </div>
             <Typography sx={{mt:4, ml:8.5}}>Will Search within the selected structual elements for the given search term(s)</Typography>
           </Stack>
+          <Button sx={{mt: 4, ml: 2}} variant="contained" onClick={this.handleClick}>Search</Button>
         </div>
       );
     }
