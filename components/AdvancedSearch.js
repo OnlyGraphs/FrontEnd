@@ -18,7 +18,7 @@ class AdvancedSearch extends React.Component {
    * @param {*} event 
    */
   handleClick(event) {
-    alert(this.buildFinalResult())
+    this.props.callback(this.buildFinalResult())
   }
 
   handleChange(event) {
