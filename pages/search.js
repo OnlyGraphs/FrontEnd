@@ -82,8 +82,8 @@ function Search() {
                     page={page ? page : 1}
                     sortby={sortBy ? sortBy : "relevance"}
                     resultsPerPage={resultsPerPage ? resultsPerPage : "20"}
-                    callback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
-                    onClickCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
+                    queryChangeCallback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
+                    feedbackCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                 />
             </div>
         )

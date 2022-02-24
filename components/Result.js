@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardContent, Typography, Card, Link } from '@mui/material';
+import { CardContent, Typography, Card, Link, Button, Icon } from '@mui/material';
+
 
 /**
  * Result component designed to display a single result
@@ -21,13 +22,24 @@ class Result extends React.Component {
                     <p>
                         {this.props.abstract}
                     </p>
+                    <div style={{display: "flex", align: "center"}}>
+                        <Icon name="graphIcon" fontSize='large'><img src="./static/relational.svg" onClick={this.handleClick}></img></Icon>
+                        <Button name="graphButton" onClick={this.handleClick}>Graph Search</Button>
+                    </div>
                 </CardContent>
             </Card>
         )
     }
 
-    handleClick = () => {
-        this.props.onClickCallback(this.props.title)
+    handleClick = (event) => {
+        console.log(event)
+        if (event.target.name === "graphIcon" || event.target.name === "graphButton") {
+            alert("Relation Search")
+        } else {
+            console.log("A")
+            this.props.feedbackCallback(this.props.title)
+            window.open("https://simple.wikipedia.org/wiki/" + this.props.title, '_blank')
+        }
     }
 }
 export default Result;

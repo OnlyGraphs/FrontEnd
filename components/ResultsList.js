@@ -18,11 +18,9 @@ import Link from '@mui/material/Link'
     buildResult(doc, id) {
         return(
             <div>
-                <Link href={"https://simple.wikipedia.org/wiki/" + doc.title} underline="none" target="_blank" rel="noopener">
                 <ListItemButton>
-                    <Result id={id} title={doc.title} abstract={doc.abstract} onClickCallback={this.props.onClickCallback}></Result>
+                    <Result id={id} title={doc.title} abstract={doc.abstract} feedbackCallback={this.props.feedbackCallback}></Result>
                 </ListItemButton>
-                </Link>
                 <Divider />
             </div>
         )
