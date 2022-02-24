@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import RelationResults from '../components/RelationalResultsWindow';
 import nodeConst from 'react-d3-graph/lib/components/node/node.const';
+import RelationSearch from '../components/RelationSearch';
 
 function relationSearch() {
   const router = useRouter() //Gets up the router object to get the data about the URI parameter
@@ -49,7 +50,12 @@ function relationSearch() {
     let graphData = convertToFormat(jsonObj)
     return (
       <div>
-      {data}
+      <RelationSearch 
+        root={root} 
+        hops={hops} 
+        query={query} 
+        maxResults={maxResults ? maxResults : 20}
+      />
       <RelationResults data={graphData}/>
       </div>
     )
