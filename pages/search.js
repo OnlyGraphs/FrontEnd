@@ -84,6 +84,7 @@ function Search() {
                     resultsPerPage={resultsPerPage ? resultsPerPage : "20"}
                     queryChangeCallback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
                     feedbackCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
+                    relationSearchCallback={(root) => startRelationalSearch(root, router)}
                 />
             </div>
         )
@@ -97,8 +98,10 @@ function Search() {
  * This function is given as the callback for components on this page that might initalise a new search either with a new query 
  * or by changing the other parameters of the search it takes the query (and optionally othe details) and forms the search query and moves to that page
  * @param query Must be passed
- * @param sortBy Optional, null if not required
- * @todo Allow this to accept page, sortby and results per page
+ * @param sortBy
+ * @param page
+ * @param resultsPerPage
+ * @param router
  */
 function makeRequest(query, sortBy, page, resultsPerPage, router) {
     var uri = "/search?query=" + encodeURIComponent(query)
@@ -115,6 +118,12 @@ function makeRequest(query, sortBy, page, resultsPerPage, router) {
     router.push(uri)
 };
 
+/**
+ * This function is given as the callback for components on this page that might return feedback after a result is selected 
+ * @param query Must be passed
+ * @param pageOfResult 
+ * @param resultTitle 
+ */
 function returnFeedback(query, pageOfResult, resultTitle) {
     var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + encodeURIComponent(query) + "&resultPage=" + pageOfResult
     if (resultTitle != null) {
@@ -124,15 +133,12 @@ function returnFeedback(query, pageOfResult, resultTitle) {
     fetch(uri)
 }
 
+function startRelationalSearch(root, router) {
+    router.push("/relationSearch?root=" + root + "&hops=1")
+}
+
 function sortDocuments(n1, n2) {
     return n1.score - n2.score;
 }
-
-//Example documents
-var doc1 = {title: "Apple", score: 10, abstract: "Apple is the edible fruit of a number of trees, known for this juicy, green or red fruits. The tree (Malus spp.) is grown worldwide. Its fruit is low-cost, and is harvested all over the world. "}
-var doc2 = {title: "Waterfall", score: 500, abstract: "A waterfall is a place where water rushes down a steep ledge. The water flows from higher land, then it falls down a big step of rock to lower land of softer rock where it will continue on its journey. Usually the lower land is in a gorge. Waterfalls are usually made when a river is young, in places where softer rock is underneath harder rock in the waterfalls "}
-var doc3 = {title: "Venezuela", score: 50, abstract: "Venezuela is a country in northern South America. Its official name is República Bolivariana de Venezuela (Bolivarian Republic of Venezuela). The official language is Spanish, and the capital is Caracas."}
-
-var testDocs = [doc2, doc1, doc3]
 
 export default Search

@@ -19,7 +19,13 @@ import Link from '@mui/material/Link'
         return(
             <div>
                 <ListItemButton>
-                    <Result id={id} title={doc.title} abstract={doc.abstract} feedbackCallback={this.props.feedbackCallback}></Result>
+                    <Result 
+                        id={id} 
+                        title={doc.title} 
+                        abstract={doc.abstract} 
+                        feedbackCallback={this.props.feedbackCallback}
+                        relationSearchCallback = {this.props.relationSearchCallback}
+                    />
                 </ListItemButton>
                 <Divider />
             </div>

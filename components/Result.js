@@ -9,21 +9,21 @@ import { CardContent, Typography, Card, Link, Button, Icon } from '@mui/material
 class Result extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {wikiLink: "https://simple.wikipedia.org/wiki/" + this.props.title}
     }
 
     render() {
-        var link = "https://simple.wikipedia.org/wiki/" + this.props.title
         return(
             <Card sx={{width: 1}} onClick={this.handleClick}>
                 <CardContent>
-                    <Link variant="h5" href={link} target="_blank" rel="noopener">
+                    <Link variant="h5" href={this.state.wikiLink} target="_blank" rel="noopener">
                         {this.props.title}
                     </Link>
                     <p>
                         {this.props.abstract}
                     </p>
                     <div style={{display: "flex", align: "center"}}>
-                        <Icon name="graphIcon" fontSize='large'><img src="./static/relational.svg" onClick={this.handleClick}></img></Icon>
+                        <Icon name="graphIcon" fontSize='large'><img name="graphIcon" src="./static/relational.svg" onClick={this.handleClick}></img></Icon>
                         <Button name="graphButton" onClick={this.handleClick}>Graph Search</Button>
                     </div>
                 </CardContent>
@@ -34,11 +34,10 @@ class Result extends React.Component {
     handleClick = (event) => {
         console.log(event)
         if (event.target.name === "graphIcon" || event.target.name === "graphButton") {
-            alert("Relation Search")
+            this.props.relationSearchCallback(this.props.title)
         } else {
-            console.log("A")
             this.props.feedbackCallback(this.props.title)
-            window.open("https://simple.wikipedia.org/wiki/" + this.props.title, '_blank')
+            window.open(this.state.wikiLink, '_blank')
         }
     }
 }

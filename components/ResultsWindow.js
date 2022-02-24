@@ -48,7 +48,11 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem } from '@mui/material
                         <MenuItem value={"lastEdited"}>Last Edited</MenuItem>
                     </Select>
                 </div>
-                <ResultsList docs={this.props.docs} feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.state.page, resultTitle)}></ResultsList>
+                <ResultsList 
+                    docs={this.props.docs} 
+                    feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.state.page, resultTitle)}
+                    relationSearchCallback = {this.props.relationSearchCallback}
+                />
 
                 <Select value={this.state.resultsPerPage} onChange={this.handlePerPageChange}>
                     <MenuItem disabled value="">
