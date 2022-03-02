@@ -48,6 +48,7 @@ function relationSearch() {
   if (data != null) { //Checks if the data has been populated in the variable
     let jsonObj = JSON.parse(data)
     let graphData = convertToFormat(jsonObj)
+    let abstractMap = makeAbstractMap(jsonObj)
     return (
       <div>
       <RelationSearch 
@@ -56,7 +57,10 @@ function relationSearch() {
         query={query} 
         maxResults={maxResults ? maxResults : 20}
       />
-      <RelationResults data={graphData}/>
+      <RelationResults 
+        data={graphData} 
+        abstractMap={abstractMap}
+      />
       </div>
     )
   } 
@@ -81,6 +85,14 @@ function convertNode(node) {
 
 function convertRelation(relation) {
   return {source: relation.source, target: relation.destination}
+}
+
+function makeAbstractMap(apiJsonObj) {
+  var map = new Map()
+  for (let i = 0; i < apiJsonObj.documents.length; i++) {
+    map.set(apiJsonObj.documents[i].title, apiJsonObj.documents[i].abstract)
+  }
+  return map
 }
 
 export default relationSearch
