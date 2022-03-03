@@ -56,8 +56,10 @@ function relationSearch() {
         hops={hops} 
         query={query} 
         maxResults={maxResults ? maxResults : 20}
+        callback={(hops, query, maxResults) => makeRequest(root, hops, query, maxResults, router)}
+        returnCallback={(root) => returnToSearchResults(root, router)}
       />
-      <RelationResults 
+      <RelationResults
         data={graphData} 
         abstractMap={abstractMap}
       />
@@ -93,6 +95,37 @@ function makeAbstractMap(apiJsonObj) {
     map.set(apiJsonObj.documents[i].title, apiJsonObj.documents[i].abstract)
   }
   return map
+}
+
+/**
+ * This function is given as the callback for components on this page that might initalise a new search either with a new query 
+ * or by changing the other parameters of the search it takes the query (and optionally othe details) and forms the search query and moves to that page
+ * @param query Must be passed
+ * @param sortBy
+ * @param page
+ * @param resultsPerPage
+ * @param router
+ */
+function makeRequest(root, hops, query, maxResults, router) {
+  var uri = "/relationSearch?root=" + root
+  //For each of the 3 optional elements they are checked and if not null they are added
+  if (hops != null) {
+      uri = uri + "&hops=" + hops
+  } else {
+    uri = uri + "&hops=1"
+  }
+  if (query != null) {
+      uri = uri + "&query=" + encodeURIComponent(query)
+  }
+  if (maxResults != null) {
+      uri = uri + "&maxResults=" + maxResults
+  }
+  alert(uri)
+  router.push(uri)
+};
+
+function returnToSearchResults(root, router) {
+  router.push("/search?query=" + root)
 }
 
 export default relationSearch

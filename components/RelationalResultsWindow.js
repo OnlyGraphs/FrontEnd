@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, ButtonGroup} from '@mui/material';
 import { Graph } from "react-d3-graph";
+import RelationalResult from './RelationalResult';
 
 
 const graphConfig = {
@@ -14,7 +15,13 @@ const graphConfig = {
  class RelationResultsWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {page: this.props.page, sortby: this.props.sortby, resultsPerPage: this.props.resultsPerPage, currentAbstract: ""}
+        this.state = {
+            page: this.props.page,
+            sortby: this.props.sortby,
+            resultsPerPage: this.props.resultsPerPage,
+            currentAbstract: "Hover over a node to see the abstract, click on a node to open the page",
+            currentTitle: ""
+        }
         this.onHoverIn =  this.onHoverIn.bind(this)
         this.onHoverOut = this.onHoverOut.bind(this)
     }
@@ -25,11 +32,11 @@ const graphConfig = {
 
     onHoverIn = (title) => {
         var abstract = this.props.abstractMap.get(title)
-        this.setState({currentAbstract: abstract})
+        this.setState({currentAbstract: abstract, currentTitle: title})
     }
 
     onHoverOut = (title) => {
-        this.setState({currentAbstract: ""})
+        this.setState({currentAbstract: "Hover over a node to see the abstract, click on a node to open the linked page", currentTitle: ""})
         
     }
     
@@ -46,7 +53,7 @@ const graphConfig = {
                 onMouseOutNode={this.onHoverOut}
             />
         </div>
-        <p>{this.state.currentAbstract}</p>
+        <RelationalResult title={this.state.currentTitle} abstract={this.state.currentAbstract} />
         </div>
         )
     }

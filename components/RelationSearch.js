@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, TextField, Select, MenuItem, InputLabel} from '@mui/material'
+import {Button, TextField, Select, MenuItem, InputLabel, Stack} from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 /**
  * Simple component contains just a search box and a button to press
@@ -9,10 +10,16 @@ import {Button, TextField, Select, MenuItem, InputLabel} from '@mui/material'
 class RelationSearch extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {root: this.props.root, hops: this.props.hops, query: this.props.query, maxResults: this.props.maxResults};
+      this.state = {
+        root: this.props.root,
+        hops: this.props.hops,
+        query: this.props.query,
+        maxResults: this.props.maxResults
+      };
       this.handleOnChange = this.handleOnChange.bind(this)
       this.handleClick = this.handleClick.bind(this);
       this.enterHunt = this.enterHunt.bind(this)
+      this.handleReturn = this.handleReturn.bind(this)
     }
 
     /**
@@ -20,7 +27,11 @@ class RelationSearch extends React.Component {
      * @param {*} event 
      */
     handleClick(event) {
-        this.props.callback(this.state.query)
+        this.props.callback(
+          this.state.hops,
+          this.state.query,
+          this.state.maxResults
+        )
     }
 
     /**
@@ -28,7 +39,17 @@ class RelationSearch extends React.Component {
      * @param {*} event 
      */
     handleOnChange(event) {
-        this.setState({});
+        if (event.target.name == "hops") {
+          this.setState({hops: event.target.value})
+        } else if (event.target.name == "query") {
+          this.setState({query: event.target.value})
+        } else {
+          this.setState({maxResults: event.target.value})
+        }
+    }
+
+    handleReturn(event) {
+      this.props.returnCallback(this.state.root)
     }
 
     /**
@@ -44,27 +65,39 @@ class RelationSearch extends React.Component {
     render() {
       return (
         <div>
-            <TextField disabled id="outlined-basic" variant="filled" label="Root" value={this.state.root} onChange={this.handleOnChange} onKeyPress={this.enterHunt}></TextField>
-            <InputLabel sx={{mt: 1}} id="structLabel">Number of Hops</InputLabel>
-            <Select sx={{ mt: 2, width: 100 }} name="structType" value={this.state.hops} label="Structural Element" variant="standard" labelId='structLabel' onChange={this.handleChange}>
-              <MenuItem value={"1"}>1</MenuItem>
-              <MenuItem value={"2"}>2</MenuItem>
-              <MenuItem value={"3"}>3</MenuItem>
-              <MenuItem value={"4"}>4</MenuItem>
-            </Select>
-            <TextField variant="outlined" value={this.state.query} onChange={this.handleOnChange} onKeyPress={this.enterHunt}></TextField>
-            <Select value={this.state.maxResults}>
-              <MenuItem disabled value="">
-                  <em>Results Displayed per Page</em>
-              </MenuItem>
-              <MenuItem value={"5"}>5</MenuItem>
-              <MenuItem value={"10"}>10</MenuItem>
-              <MenuItem value={"20"}>20</MenuItem>
-              <MenuItem value={"50"}>50</MenuItem>
-              <MenuItem value={"100"}>100</MenuItem>
-            </Select>
-
-            <Button variant="contained" onClick={this.handleClick} style={{float: 'right'}}>Search</Button>
+            <Button variant="outlined" startIcon={<ArrowBackIcon />} onClick={this.handleReturn}>
+              Return to results
+            </Button>
+            <Stack direction="row" spacing={2} sx={{mb: 1, mt: 1}}>
+              <Stack>
+                <InputLabel id="coolLabel2">Root</InputLabel>
+                <TextField disabled labelId='coolLabel2' variant="outlined" value={this.state.root} onChange={this.handleOnChange} onKeyPress={this.enterHunt}></TextField>
+              </Stack>
+              <Stack>
+                <InputLabel id="coolLabel">Hops</InputLabel>
+                <Select name="hops" labelId='coolLabel' value={this.state.hops} onChange={this.handleOnChange}>
+                  <MenuItem value={"1"}>1</MenuItem>
+                  <MenuItem value={"2"}>2</MenuItem>
+                  <MenuItem value={"3"}>3</MenuItem>
+                  <MenuItem value={"5"}>4</MenuItem>
+                </Select>
+              </Stack>
+              <Stack>
+                <InputLabel id="coolLabel7">Query</InputLabel>
+                <TextField labelId='coolLabel7' name="query" variant="outlined" value={this.state.query} onChange={this.handleOnChange} onKeyPress={this.enterHunt}></TextField>
+              </Stack>
+              <Stack>
+                <InputLabel id="coolLabel1">Max Results</InputLabel>
+                <Select name="maxResults" labelId='coolLabel1' value={this.state.maxResults} onChange={this.handleOnChange}>
+                  <MenuItem value={"5"}>5</MenuItem>
+                  <MenuItem value={"10"}>10</MenuItem>
+                  <MenuItem value={"20"}>20</MenuItem>
+                  <MenuItem value={"50"}>50</MenuItem>
+                  <MenuItem value={"100"}>100</MenuItem>
+                </Select>
+              </Stack>
+            </Stack>
+            <Button variant="contained" onClick={this.handleClick} sx={{mb:2}}>Search</Button>
         </div>
       );
     }
