@@ -16,9 +16,6 @@ const graphConfig = {
     constructor(props) {
         super(props);
         this.state = {
-            page: this.props.page,
-            sortby: this.props.sortby,
-            resultsPerPage: this.props.resultsPerPage,
             currentAbstract: "Hover over a node to see the abstract, click on a node to open the page",
             currentTitle: ""
         }
@@ -27,6 +24,7 @@ const graphConfig = {
     }
 
     onClickNode = (title) => {
+        this.props.feedbackCallback(title)
         window.open("https://simple.wikipedia.org/wiki/" + title, '_blank')
     };
 

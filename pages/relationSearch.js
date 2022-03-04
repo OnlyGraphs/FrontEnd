@@ -62,6 +62,7 @@ function relationSearch() {
       <RelationResultsWindow
         data={graphData} 
         abstractMap={abstractMap}
+        feedbackCallback={(title) => returnFeedback(query, title)}
       />
       </div>
     )
@@ -125,7 +126,7 @@ function makeRequest(root, hops, query, maxResults, router) {
 };
 
 function returnFeedback(query, resultTitle) {
-  var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + encodeURIComponent(query) + "&resultPage=1"
+  var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + encodeURIComponent(query ? query : "relational") + "&resultPage=0"
   if (resultTitle != null) {
       uri = uri + "&choosenResult=" + resultTitle
   }
