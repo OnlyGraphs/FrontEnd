@@ -21,7 +21,7 @@ class SimpleSearch extends React.Component {
      * @param {*} event 
      */
     handleClick(event) {
-        if (this.state.query !== "") { //Doesn't allow the search to be done when nothing has been entered
+        if (this.state.query !== "" && typeof this.state.query !== "undefined") { //Doesn't allow the search to be done when nothing has been entered
           this.props.callback(this.state.query)
         }
     }
