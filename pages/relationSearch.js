@@ -2,7 +2,7 @@ import Head from 'next/head'
 import ReactDOM from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import RelationResults from '../components/RelationalResultsWindow';
+import RelationResultsWindow from '../components/RelationalResultsWindow';
 import nodeConst from 'react-d3-graph/lib/components/node/node.const';
 import RelationSearch from '../components/RelationSearch';
 
@@ -59,7 +59,7 @@ function relationSearch() {
         callback={(hops, query, maxResults) => makeRequest(root, hops, query, maxResults, router)}
         returnCallback={(root) => returnToSearchResults(root, router)}
       />
-      <RelationResults
+      <RelationResultsWindow
         data={graphData} 
         abstractMap={abstractMap}
       />
@@ -123,6 +123,15 @@ function makeRequest(root, hops, query, maxResults, router) {
   alert(uri)
   router.push(uri)
 };
+
+function returnFeedback(query, resultTitle) {
+  var uri = process.env.NEXT_PUBLIC_BACKEND + "/api/v1/feedback?query=" + encodeURIComponent(query) + "&resultPage=1"
+  if (resultTitle != null) {
+      uri = uri + "&choosenResult=" + resultTitle
+  }
+  alert(uri)
+  fetch(uri)
+}
 
 function returnToSearchResults(root, router) {
   router.push("/search?query=" + root)
