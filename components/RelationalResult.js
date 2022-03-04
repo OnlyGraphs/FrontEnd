@@ -3,7 +3,7 @@ import { CardContent, Typography, Card, Link, Button, Icon } from '@mui/material
 
 
 /**
- * Result component designed to display a single result
+ * Result component designed to display a single result in relational search (contains a subset of the functionality of the normal Result)
  * Expects to receive in props: 'title' and 'abstract' both strings
  */
 class RelationalResult extends React.Component {

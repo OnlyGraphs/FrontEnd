@@ -10,7 +10,7 @@ const graphConfig = {
 }
 
 /**
- * Write this
+ * Displays the results of a relational search in a graph
  */
  class RelationResultsWindow extends React.Component {
     constructor(props) {
@@ -23,22 +23,34 @@ const graphConfig = {
         this.onHoverOut = this.onHoverOut.bind(this)
     }
 
+    /**
+     * Method called when a use clicks on a node, sends feedback and then opens the article
+     * @param {*} title The id of the node (i.e. the title of the article)
+     */
     onClickNode = (title) => {
         this.props.feedbackCallback(title)
         window.open("https://simple.wikipedia.org/wiki/" + title, '_blank')
     };
 
+    /**
+     * Method called when a user hovers over a node, displays the articles abstract below the graph
+     * @param {*} title The id of the node (i.e. the title of the article)
+     */
     onHoverIn = (title) => {
         var abstract = this.props.abstractMap.get(title)
         this.setState({currentAbstract: abstract, currentTitle: title})
     }
 
+    /**
+     * Method called when a user stops hovering over a node, sets the default text in the result section
+     * @param {*} title The id of the node (i.e. the title of the article)
+     */
     onHoverOut = (title) => {
         this.setState({currentAbstract: "Hover over a node to see the abstract, click on a node to open the linked page", currentTitle: ""})
         
     }
     
-    render() { //The map build the result for each document
+    render() {
         return(
             <div>
             <div style={{borderStyle: 'solid'}}>

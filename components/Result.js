@@ -31,11 +31,15 @@ class Result extends React.Component {
         )
     }
 
+    /**
+     * Handles a user clicking any of the buttons on the result
+     * @param {} event 
+     */
     handleClick = (event) => {
         console.log(event)
-        if (event.target.name === "graphIcon" || event.target.name === "graphButton") {
+        if (event.target.name === "graphIcon" || event.target.name === "graphButton") { //If its the one that sets off a relational search
             this.props.relationSearchCallback(this.props.title)
-        } else {
+        } else { //Otherwise its presumed to be trying to open the search result
             this.props.feedbackCallback(this.props.title)
             window.open(this.state.wikiLink, '_blank')
         }

@@ -35,7 +35,7 @@ class RelationSearch extends React.Component {
     }
 
     /**
-     * Handles changes to the query in the text box
+     * Handles changes to the inputs
      * @param {*} event 
      */
     handleOnChange(event) {
@@ -48,6 +48,10 @@ class RelationSearch extends React.Component {
         }
     }
 
+    /**
+     * Method designed to handle the user returning from relational search to the normal search results
+     * @param {} event 
+     */
     handleReturn(event) {
       this.props.returnCallback(this.state.root)
     }

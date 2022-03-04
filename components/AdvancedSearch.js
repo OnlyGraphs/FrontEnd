@@ -21,6 +21,10 @@ class AdvancedSearch extends React.Component {
     this.props.callback(this.buildFinalResult())
   }
 
+  /**
+   * Handles changes to the inputs in order to update the state
+   * @param {*} event 
+   */
   handleChange(event) {
     if (event.target.name == "andBox") {
       this.setState({andBox: event.target.value})
@@ -43,49 +47,65 @@ class AdvancedSearch extends React.Component {
     }
   }
 
+  /**
+   * Method that is run to take all the data in the state that represents the inputs and builds
+   * it into an actual query that can be sent to the backend
+   * @returns 
+   */
   buildFinalResult() {
-    var individualBoxResults = []
-    if (this.state.andBox != "") {
-      var validTerms = this.state.andBox.split(" ").filter(term => term != "" && term != " ")
-      console.log(validTerms)
-      var andString = this.arrayFold(validTerms, ",AND,")
-      individualBoxResults.push(andString)
+    var individualBoxResults = [] //Contains the queries for each individual input, these are combined at the end of the method
+
+    if (this.state.andBox != "") { //First checks if any data has been entered into the input
+      var validTerms = this.state.andBox.split(" ").filter(term => term != "" && term != " ") //Splits out values and removes any empty string/spaces
+      var andString = this.arrayFold(validTerms, ",AND,") //Folds them with AND which is this inputs operator
+      individualBoxResults.push(andString) //Adds the result to the individual array
     }
+
     if (this.state.phraseBox != "") {
       individualBoxResults.push("\"" + this.state.phraseBox + "\"")
     }
+
     if (this.state.noneBox != "") {
       var validTerms = this.state.noneBox.split(" ").filter(term => term != "" && term != " ")
       var validTerms = validTerms.map(term => "NOT," + term)
-      console.log(validTerms)
       var notString = this.arrayFold(validTerms, ",AND,")
       individualBoxResults.push(notString)
     }
+
     if (this.state.orBox != "") {
       var validTerms = this.state.orBox.split(" ").filter(term => term != "" && term != " ")
       var ORString = this.arrayFold(validTerms, ",OR,")
       individualBoxResults.push(ORString)
     }
+
     if (this.state.dist != "" && this.state.distWord1 != "" && this.state.distWord2 != "") {
       var distString = "#DIST," + this.state.dist + "," + this.state.distWord1 + "," + this.state.distWord2
       individualBoxResults.push(distString)
     }
+
     if (this.state.structType != "" && this.state.structQuery != "") {
       var structString = "#" + this.state.structType + "," + this.state.structQuery
       individualBoxResults.push(structString)
     }
-    return this.arrayFold(individualBoxResults, ",AND,")
+
+    return this.arrayFold(individualBoxResults, ",AND,") //At the end all the individual inputs are ANDed together
   }
 
+  /**
+   * My own form of a fold over an array. Used when I need to combined multiple strings with an operator between them
+   * @param {*} array An array of strings
+   * @param {*} operator A string to be placed between each element of the array
+   * @returns 
+   */
   arrayFold(array, operator) {
     var result = ""
-    if (array.length == 1) {
+    if (array.length == 1) { //If the array is of length 1 then no operators need to be put in
       return array[0]
     }
     for (let i = 0; i < array.length - 1; i++) {
-      result = result + array[i] + operator
+      result = result + array[i] + operator //For each element of the string its added with an operator behind it
     }
-    return result + array[array.length - 1]
+    return result + array[array.length - 1] //To prevent a trailing operator the last element is added at the end
   }
     
     render() {
