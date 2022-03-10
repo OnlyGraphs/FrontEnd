@@ -33,11 +33,19 @@ import Link from '@mui/material/Link'
     }
     
     render() { //The map build the result for each document
-        return(
-            <List>
-                {this.props.docs.map((doc, i, _) => this.buildResult(doc, i))}
-            </List>
-        )
+        if (this.props.docs.length == 0) {
+            return(
+                <div>
+                    <p>Not Results Found</p>
+                </div>
+            )
+        } else {
+            return(
+                <List>
+                    {this.props.docs.map((doc, i, _) => this.buildResult(doc, i))}
+                </List>
+            )
+        }
     }
 
 }
