@@ -20,7 +20,7 @@ class Result extends React.Component {
                         {this.props.title}
                     </Link>
                     <p>
-                        {this.props.abstract}
+                        {this.props.abstract.substring(0,400) + "..."}
                     </p>
                     <div style={{display: "flex", align: "center"}}>
                         <Icon name="graphIcon" fontSize='large'><img name="graphIcon" src="./static/relational.svg" onClick={this.handleClick}></img></Icon>
