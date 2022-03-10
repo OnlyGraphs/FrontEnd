@@ -26,7 +26,7 @@ function Home() {
     //Gets title data
     useEffect(() => {
       setLoading(true)
-        fetch("http://localhost:3000" + "/static/articleTitles.txt")
+        fetch(process.env.NEXT_PUBLIC_BACKEND + "/static/articleTitles.txt")
         .then((res) => res.text())
         .then((data) => {
             setTitles(data.split("\n"))
