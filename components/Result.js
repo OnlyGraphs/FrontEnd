@@ -16,9 +16,9 @@ class Result extends React.Component {
         return(
             <Card sx={{width: 1}} onClick={this.handleClick}>
                 <CardContent>
-                    <Link variant="h5" href={this.state.wikiLink} target="_blank" rel="noopener">
+                    <Typography sx={{textDecoration: 'underline', color: 'blue'}} variant="h5">
                         {this.props.title}
-                    </Link>
+                    </Typography>
                     <p>
                         {this.props.abstract.substring(0,400) + "..."}
                     </p>

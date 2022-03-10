@@ -20,7 +20,7 @@ class RelationalResult extends React.Component {
                         {this.props.title}
                     </Link>
                     <p>
-                        {this.props.abstract}
+                        {this.props.abstract.substring(0,400) + "..."}
                     </p>
                 </CardContent>
             </Card>
