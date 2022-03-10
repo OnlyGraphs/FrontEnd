@@ -42,6 +42,7 @@ class SimpleSearch extends React.Component {
     }
 
     /**
+     * DOESN'T SEEM TO BE NEEDED
      * Watches the keystrokes the user uses, if they use the Enter key this should be equivalent to pressing the search button
      * @param {*} event 
      */
@@ -52,14 +53,13 @@ class SimpleSearch extends React.Component {
     }
 
     filterTitles(newQuery) {
-      console.log(newQuery)
       this.setState({currentTitles: this.props.titles.filter(title => title.includes(newQuery))})
     }
     
     render() {
 
       if (this.props.titles == null) {
-        return(<p>Nah</p>)
+        return(<p>Loading</p>)
       }
 
       return (
@@ -77,7 +77,7 @@ class SimpleSearch extends React.Component {
                 variant="outlined"
                 value={this.state.query}
                 onChange={this.handleOnChange}
-                onKeyDown={this.enterHunt}
+                //onKeyDown={this.enterHunt}
               />
             }
           />

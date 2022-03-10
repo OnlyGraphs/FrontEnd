@@ -130,7 +130,6 @@ function returnFeedback(query, resultTitle) {
   if (resultTitle != null) {
       uri = uri + "&choosenResult=" + resultTitle
   }
-  alert(uri)
   fetch(uri)
 }
 
