@@ -19,6 +19,10 @@ class SimpleSearch extends React.Component {
       this.autocompleteOnChange = this.autocompleteOnChange.bind(this)
     }
 
+    componentDidMount() {
+      this.filterTitles(this.state.query) //Filters the titles down to the relevant ones once the component has loaded
+    } //Otherwise it shows the default list
+
     /**
      * Handles the event in which the user presses the search button
      * @param {*} event 
@@ -71,6 +75,7 @@ class SimpleSearch extends React.Component {
             id="combo-box-demo"
             options={this.state.currentTitles.slice(0,20)}
             onChange={this.autocompleteOnChange}
+            onKeyUp={this.enterHunt} //Uses on key up to allow the autocomplete to fire first (hacky fix but whatever)
             renderInput={
               (params) => 
               <TextField 
@@ -78,7 +83,6 @@ class SimpleSearch extends React.Component {
                 variant="outlined"
                 value={this.state.query}
                 onChange={this.handleOnChange}
-                //onKeyDown={this.enterHunt}
               />
             }
           />
