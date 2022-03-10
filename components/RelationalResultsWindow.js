@@ -6,7 +6,25 @@ import RelationalResult from './RelationalResult';
 
 const graphConfig = {
     directed: true,
-    width: 1000
+    width: 1900,
+    height: 600,
+    nodeHighlightBehavior: true,
+    linkHighlightBehavior: true,
+    highlightDegree: 2,
+    d3: {
+        linkLength: 400,
+        gravity: -300
+    },
+    node: {
+        color: "lightgray",
+        labelPosition: "top",
+        highlightStrokeColor: "black",
+        highlightColor: "lightblue",
+        labelProperty: "Dave"
+    },
+    link: {
+        highlightColor: "blue",
+    }
 }
 
 /**
@@ -52,15 +70,15 @@ const graphConfig = {
     
     render() {
         return(
-            <div>
+            <div sx={{width: 1800}}>
             <div style={{borderStyle: 'solid'}}>
             <Graph
                 id="graph-id" // id is mandatory
                 data={this.props.data}
                 config={graphConfig}
                 onClickNode = {this.onClickNode}
-                onMouseOverNode={this.onHoverIn}
-                onMouseOutNode={this.onHoverOut}
+                //onMouseOverNode={this.onHoverIn}
+                //onMouseOutNode={this.onHoverOut}
             />
         </div>
         <RelationalResult title={this.state.currentTitle} abstract={this.state.currentAbstract} />
