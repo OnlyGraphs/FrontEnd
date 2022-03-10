@@ -2,7 +2,7 @@ import React from 'react';
 import ResultsList from './ResultsList';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { IconButton, Button, ButtonGroup, Select, MenuItem } from '@mui/material';
+import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@mui/material';
 
 /**
  * ResultsWindow component designed to display a list of results and to handle
@@ -47,6 +47,9 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem } from '@mui/material
                         <MenuItem value={"relevance"}>Relevance</MenuItem>
                         <MenuItem value={"lastEdited"}>Last Edited</MenuItem>
                     </Select>
+                    <Typography sx={{ml: 2, mt: 4}}>
+                        Results fetched in {this.props.loadTime} ms
+                    </Typography>
                 </div>
                 <ResultsList 
                     docs={this.props.docs} 

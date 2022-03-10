@@ -42,7 +42,6 @@ function relationSearch() {
   }, [router.query])
 
   //Loading Screen returned here (perhaps make this better)
-  if (isLoading) return <p>Loading...</p>
   
   //Once the data has been fetched and populated into the data variable
   if (data != null) { //Checks if the data has been populated in the variable

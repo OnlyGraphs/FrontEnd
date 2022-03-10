@@ -50,11 +50,13 @@ function Search() {
 
     //Sets variables for client side data fetching
     const [data, setData] = useState(null)
+    const [loadTime, setLoadTime] = useState(-1)
     const [isLoading, setLoading] = useState(false)
   
     //Gets data from backend
     useEffect(() => {
       if (router.isReady) { //If the URL parameters have been fetched
+        var start = Date.now()
         console.log(uri)
         setLoading(true)
         fetch(uri)
@@ -62,6 +64,7 @@ function Search() {
         .then((data) => {
             setData(data)
             setLoading(false)
+            setLoadTime(Date.now()-start)
         })
       }
     }, [router.query])
@@ -98,6 +101,7 @@ function Search() {
                     page={page ? page : 1}
                     sortby={sortBy ? sortBy : "relevance"}
                     resultsPerPage={resultsPerPage ? resultsPerPage : "20"}
+                    loadTime = {loadTime}
                     queryChangeCallback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
                     feedbackCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                     relationSearchCallback={(root) => startRelationalSearch(root, router)}
