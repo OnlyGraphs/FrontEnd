@@ -13,6 +13,10 @@ function makeRequest(simpleQuery, router) {
   router.push(pathVariable) //Sends the user to the 'results' page
 }
 
+function goToAdvanced(router) {
+  router.push("/advanced")
+}
+
 /**
  * Displays the basic homepage that contains just a simple search
  */
@@ -41,6 +45,7 @@ function Home() {
         <br></br>
         <SimpleSearch 
           callback={(val) => {makeRequest(val, router);} }
+          advancedCallback={() => goToAdvanced(router)}
           titles={titles}
         />
       </div>

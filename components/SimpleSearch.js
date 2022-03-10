@@ -86,7 +86,10 @@ class SimpleSearch extends React.Component {
               />
             }
           />
-          <Button variant="contained" onClick={this.handleClick} style={{float: 'right'}}>Search</Button>
+          <div style={{float: 'right'}}>
+            <Button sx={{mr: 1}} variant="outlined" onClick={this.props.advancedCallback}>Advanced Search</Button>
+            <Button variant="contained" onClick={this.handleClick} >Search</Button>
+          </div>
         </div>
       );
     }

@@ -93,6 +93,7 @@ function Search() {
             <div>
                 <SimpleSearch 
                     callback={(val) => {makeRequest(val, null, null, null, router);}} 
+                    advancedCallback = {() => goToAdvanced(router)}
                     query={query}
                     titles={titles}
                 />
@@ -165,6 +166,10 @@ function returnFeedback(query, pageOfResult, resultTitle) {
 function startRelationalSearch(root, router) {
     router.push("/relationSearch?root=" + root + "&hops=1")
 }
+
+function goToAdvanced(router) {
+    router.push("/advanced")
+  }
 
 function sortDocuments(n1, n2) {
     return n1.score - n2.score;
