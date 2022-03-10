@@ -67,6 +67,7 @@ class SimpleSearch extends React.Component {
           <Autocomplete
             freeSolo
             fullWidth
+            value={this.state.query}
             id="combo-box-demo"
             options={this.state.currentTitles.slice(0,20)}
             onChange={this.autocompleteOnChange}
