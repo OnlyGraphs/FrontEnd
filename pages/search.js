@@ -80,9 +80,6 @@ function Search() {
             setAlsoLoading(false)
         })
     }, [])
-  
-    //Loading Screen returned here (perhaps make this better)
-    if (isLoading || alsoLoading) return <p>Loading...</p>
     
     //Once the data has been fetched and populated into the data variable
     if (data != null && titles != null) { //Checks if the data has been populated in the variable
@@ -110,7 +107,16 @@ function Search() {
     }
     
     //For some reason there seems to be a delay between the loading finishing and the data being ready so this is here to catch it
-    return <p>Still Loading</p>
+    return (
+        <div>
+        <Head>
+          <style>{'body { background-color: #d2d2d2; }'}</style>
+        </Head>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+            <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>
+        </div>
+      </div>
+    )
 }
 
 /**

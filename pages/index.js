@@ -46,8 +46,15 @@ function Home() {
       </div>
     )
   } else {
-    return(
-      <p>Loading</p>
+    return (
+      <div>
+      <Head>
+        <style>{'body { background-color: #d2d2d2; }'}</style>
+      </Head>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+          <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>
+      </div>
+    </div>
     )
   }
 }
