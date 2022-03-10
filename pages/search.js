@@ -65,18 +65,37 @@ function Search() {
         })
       }
     }, [router.query])
+
+    //Sets variables for client side data fetching
+    const [titles, setTitles] = useState(null)
+    const [alsoLoading, setAlsoLoading] = useState(false)
+
+    //Gets title data
+    useEffect(() => {
+        setAlsoLoading(true)
+        fetch("http://localhost:3000" + "/static/articleTitles.txt")
+        .then((res) => res.text())
+        .then((data) => {
+            setTitles(data.split("\n"))
+            setAlsoLoading(false)
+        })
+    }, [])
   
     //Loading Screen returned here (perhaps make this better)
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading || alsoLoading) return <p>Loading...</p>
     
     //Once the data has been fetched and populated into the data variable
-    if (data != null) { //Checks if the data has been populated in the variable
+    if (data != null && titles != null) { //Checks if the data has been populated in the variable
         var docs = JSON.parse(data) //It's parses, sorted and rendered in the return
         docs.sort(sortDocuments)
         docs.reverse()
         return (
             <div>
-                <SimpleSearch callback={(val) => {makeRequest(val, null, null, null, router);}} query={query}></SimpleSearch>
+                <SimpleSearch 
+                    callback={(val) => {makeRequest(val, null, null, null, router);}} 
+                    query={query}
+                    titles={titles}
+                />
                 <ResultsWindow 
                     docs={docs}
                     page={page ? page : 1}

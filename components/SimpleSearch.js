@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Autocomplete from '@mui/material/Autocomplete';
 
 /**
  * Simple component contains just a search box and a button to press
@@ -10,10 +11,12 @@ import Button from '@mui/material/Button';
 class SimpleSearch extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {query: this.props.query};
+      this.state = {query: this.props.query, currentTitles: this.props.titles};
       this.handleOnChange = this.handleOnChange.bind(this)
       this.handleClick = this.handleClick.bind(this);
       this.enterHunt = this.enterHunt.bind(this)
+      this.filterTitles = this.filterTitles.bind(this)
+      this.autocompleteOnChange = this.autocompleteOnChange.bind(this)
     }
 
     /**
@@ -31,7 +34,11 @@ class SimpleSearch extends React.Component {
      * @param {*} event 
      */
     handleOnChange(event) {
-        this.setState({query: event.target.value});
+        this.setState({query: event.target.value}, this.filterTitles(event.target.value));
+    }
+
+    autocompleteOnChange(event, value) {
+      this.setState({query: value}, this.handleClick)
     }
 
     /**
@@ -43,12 +50,38 @@ class SimpleSearch extends React.Component {
             this.handleClick(event) //Just calls the same method as pressing the button would
         }
     }
+
+    filterTitles(newQuery) {
+      console.log(newQuery)
+      this.setState({currentTitles: this.props.titles.filter(title => title.includes(newQuery))})
+    }
     
     render() {
+
+      if (this.props.titles == null) {
+        return(<p>Nah</p>)
+      }
+
       return (
         <div>
-            <TextField fullWidth id="outlined-basic" variant="outlined" value={this.state.query} onChange={this.handleOnChange} onKeyPress={this.enterHunt}></TextField>
-            <Button variant="contained" onClick={this.handleClick} style={{float: 'right'}}>Search</Button>
+          <Autocomplete
+            freeSolo
+            fullWidth
+            id="combo-box-demo"
+            options={this.state.currentTitles.slice(0,20)}
+            onChange={this.autocompleteOnChange}
+            renderInput={
+              (params) => 
+              <TextField 
+                {...params}
+                variant="outlined"
+                value={this.state.query}
+                onChange={this.handleOnChange}
+                onKeyDown={this.enterHunt}
+              />
+            }
+          />
+          <Button variant="contained" onClick={this.handleClick} style={{float: 'right'}}>Search</Button>
         </div>
       );
     }
