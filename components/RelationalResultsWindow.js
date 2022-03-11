@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonGroup} from '@mui/material';
+import {Button, ButtonGroup, Typography} from '@mui/material';
 import { Graph } from "react-d3-graph";
 import RelationalResult from './RelationalResult';
 
@@ -81,6 +81,7 @@ const graphConfig = {
                 //onMouseOutNode={this.onHoverOut}
             />
         </div>
+        <Typography>Results fetched in {this.props.loadTime} ms</Typography>
         <RelationalResult title={this.state.currentTitle} abstract={this.state.currentAbstract} />
         </div>
         )

@@ -26,16 +26,18 @@ function relationSearch() {
   //Sets variables for client side data fetching
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
+  const [loadTime, setLoadTime] = useState(-1)
 
   //Gets data from backend
   useEffect(() => {
     if (router.isReady) { //If the URL parameters have been fetched
-      console.log(uri)
+      var start = Date.now()
       setLoading(true)
       fetch(uri)
         .then((res) => res.text())
         .then((data) => {
           setData(data)
+          setLoadTime(Date.now()-start)
           setLoading(false)
         })
     }
@@ -60,6 +62,7 @@ function relationSearch() {
       />
       <RelationResultsWindow
         data={graphData} 
+        loadTime = {loadTime}
         abstractMap={abstractMap}
         feedbackCallback={(title) => returnFeedback(query, title)}
       />
@@ -130,7 +133,6 @@ function makeRequest(root, hops, query, maxResults, router) {
   if (maxResults != null) {
       uri = uri + "&maxResults=" + maxResults
   }
-  alert(uri)
   router.push(uri)
 };
 
