@@ -61,7 +61,7 @@ function relationSearch() {
         returnCallback={(root) => returnToSearchResults(root, router)}
       />
       <RelationResultsWindow
-        data={graphData} 
+        data={graphData}
         loadTime = {loadTime}
         abstractMap={abstractMap}
         feedbackCallback={(title) => returnFeedback(query, title)}
