@@ -5,25 +5,12 @@ import { useRouter, withRouter } from 'next/router'
 import SimpleSearch from '../components/SimpleSearch';
 
 /**
- * This function is given as the callback for the simple search, it takes the query and forms the search query and moves to that page
- */
-function makeRequest(simpleQuery, router) {
-  var pathVariable = "/search?query=" + encodeURIComponent(simpleQuery)
-  //alert(pathVariable)
-  router.push(pathVariable) //Sends the user to the 'results' page
-}
-
-function goToAdvanced(router) {
-  router.push("/advanced")
-}
-
-/**
  * Displays the basic homepage that contains just a simple search
  */
 function Home() {
   const router = useRouter()
 
-    //Sets variables for client side data fetching
+    //Sets variables for client side data fetching, fetches the data to be used in the autocomplete
     const [titles, setTitles] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
@@ -38,7 +25,7 @@ function Home() {
         })
     }, [])
 
-  if (!isLoading && titles !=null) {
+  if (!isLoading && titles !=null) { //Once the client side fetching is complete the main welcome page can be displayed
     return (
       <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
         <video src='./static/output.mp4' width='960' height={540} loop={false} autoPlay={true}></video>
@@ -50,7 +37,7 @@ function Home() {
         />
       </div>
     )
-  } else {
+  } else { //If the client side has not yet loaded a loading screen is shown
     return (
       <div>
       <Head>
@@ -63,5 +50,23 @@ function Home() {
     )
   }
 }
-//style={{backgroundColor: "#283a3f"}}
+
+/**
+ * This function is given as the callback for the simple search, it is given the query and moves to the search page
+ * @param simpleQuery The search query to be made
+ * @param router The Next JS router object
+ */
+ function makeRequest(simpleQuery, router) {
+  var pathVariable = "/search?query=" + encodeURIComponent(simpleQuery)
+  router.push(pathVariable) //Sends the user to the search page
+}
+
+/**
+ * Call back used to send the user to the advanced page when they click the advanced search button
+ * @param {} router 
+ */
+function goToAdvanced(router) {
+  router.push("/advanced")
+}
+
 export default Home

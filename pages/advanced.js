@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom';
 import { useRouter } from 'next/router'
 import AdvancedSearch from '../components/AdvancedSearch';
 
+/**
+ * The advanced search page, mostly just a page for the AdvancedSearch component which contains
+ * the method for users to make advanced searches using AND, OR, NOT, structural searches etc.
+ */
 function Advanced() {
     const router = useRouter()
     return(
@@ -12,11 +16,13 @@ function Advanced() {
 }
 
 /**
- * This function is given as the callback for components on this page that might initalise a new search either with a new query 
- * or by changing the other parameters of the search it takes the query (and optionally othe details) and forms the search query and moves to that page
- * @param query Must be passed
- * @param sortBy Optional, null if not required
- * @todo Allow this to accept page, sortby and results per page
+ * This function is given as the callback for components on this page that might initialise a new search either with a new query 
+ * or by changing the other parameters of the search it takes the query (and optionally other details) and forms the search query and moves to that page
+ * @param query The seach query, Must be passed
+ * @param sortBy How to sort the results (either "relevance" or "lastEdited"). Optional, null if not required
+ * @param page The page of results to show. Optional, null if not required
+ * @param resultsPerPage How many results should be shown on a page. Optional, null if not required
+ * @param router The Next JS router object, required
  */
  function makeRequest(query, sortBy, page, resultsPerPage, router) {
     var uri = "/search?query=" + encodeURIComponent(query)

@@ -11,27 +11,7 @@ import ResultsWindow from '../components/ResultsWindow';
  * they are displayed
  */
 function Search() {
-    const router = useRouter() //Gets up the router object to get the data about the URI parameter
-
-    /*
-    //Code that runs on the route change, thought to be useful to gather when moving away to another query
-    //But this has several issues first being that it doesn't know if a result has been picked (hence a new query)
-    //Also it seems to trigger twice once with a new window being null
-    useEffect(() => {
-        const handleRouteChange = (url, { shallow }) => {
-            var newQuery = new URLSearchParams(url).get("query")
-            var currentQuery = new URLSearchParams(window.location.href).get("query")
-            if (newQuery != currentQuery) {
-                console.log("New Query: " + currentQuery + "->" + newQuery)
-            } else {
-                console.log("Same Query" + currentQuery + "->" + newQuery)
-            }
-        }
-    
-        router.events.on('routeChangeStart', handleRouteChange)
-      }, [])
-      */
-    
+    const router = useRouter() //Gets up the router object to get the data about the URI parameter    
 
     const { query, sortBy, page, resultsPerPage } = router.query //Gets parameters
     
@@ -92,7 +72,7 @@ function Search() {
         return (
             <div>
                 <SimpleSearch 
-                    callback={(val) => {makeRequest(val, null, null, null, router);}} 
+                    callback={(val) => {makeRequest(val, null, null, null, router);}}
                     advancedCallback = {() => goToAdvanced(router)}
                     query={query}
                     titles={titles}
@@ -109,19 +89,18 @@ function Search() {
                 />
             </div>
         )
-    }
-    
-    //For some reason there seems to be a delay between the loading finishing and the data being ready so this is here to catch it
-    return (
-        <div>
-        <Head>
-          <style>{'body { background-color: #d2d2d2; }'}</style>
-        </Head>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-            <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>
+    } else { //If the data has not yet arrived
+        return (
+            <div>
+            <Head>
+            <style>{'body { background-color: #d2d2d2; }'}</style>
+            </Head>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>
+            </div>
         </div>
-      </div>
-    )
+        )
+    }
 }
 
 /**
@@ -163,14 +142,29 @@ function returnFeedback(query, pageOfResult, resultTitle) {
     fetch(uri)
 }
 
+/**
+ * Method called when the user selects relational search on a search result
+ * @param {*} root The result for which the relation search was selected
+ * @param {*} router The Next JS router object
+ */
 function startRelationalSearch(root, router) {
     router.push("/relationSearch?root=" + root + "&hops=1")
 }
 
+/**
+ * Method called to move the user to the advanced search page
+ * @param {*} router The Next JS router object
+ */
 function goToAdvanced(router) {
     router.push("/advanced")
   }
 
+/**
+ * Comparison method that can be used to sort the results, standard method
+ * @param {*} n1 First document
+ * @param {*} n2 Second Document
+ * @returns If >0 first document is before second, <0 second document is before first, =0 both documents are equal in place
+ */
 function sortDocuments(n1, n2) {
     return n1.score - n2.score;
 }
