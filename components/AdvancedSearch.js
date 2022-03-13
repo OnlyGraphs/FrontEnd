@@ -3,12 +3,24 @@ import { MenuItem, Select, TextField, InputLabel, Typography, Stack, Button } fr
 
 /**
  * Is the component to handle advanced searches, contains loads of boxes for stuff
+ * Expects to be passed 'callback' via which it can send a query
  * @todo Add better validation so people can't put negative numbers in the distance box
  */
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {andBox: "", phraseBox: "", noneBox: "", orBox: "", distWord1: "", distWord2: "", dist: "", structType: "", structQuery: "", finalResult: ""}
+    this.state = {
+      andBox: "", //State element for each input
+      phraseBox: "",
+      noneBox: "",
+      orBox: "",
+      distWord1: "",
+      distWord2: "",
+      dist: "",
+      structType: "",
+      structQuery: "",
+      finalResult: ""
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }

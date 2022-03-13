@@ -27,8 +27,12 @@ class RelationalResult extends React.Component {
         )
     }
 
+    /**
+     * Returns feedback if the user click this and opens the page
+     * @param {*} event 
+     */
     handleClick = (event) => {
-        //this.props.feedbackCallback(this.props.title)
+        this.props.feedbackCallback(this.props.title)
         window.open(this.state.wikiLink, '_blank')
     }
 }
