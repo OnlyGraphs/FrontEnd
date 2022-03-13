@@ -66,7 +66,10 @@ function Search() {
     
     //Once the data has been fetched and populated into the data variable
     if (data != null && titles != null) { //Checks if the data has been populated in the variable
-        var docs = JSON.parse(data) //It's parses, sorted and rendered in the return
+        var json_response = JSON.parse(data) //It's parses, sorted and rendered in the return
+        var docs = json_response.documents
+        var suggested_query = json_response.suggested_query
+
         docs.sort(sortDocuments)
         docs.reverse()
         return (
@@ -78,7 +81,9 @@ function Search() {
                     titles={titles}
                 />
                 <ResultsWindow 
+                    callback={(val) => {makeRequest(val, null, null, null, router);}}
                     docs={docs}
+                    suggested_query = {suggested_query}
                     page={page ? page : 1}
                     sortby={sortBy ? sortBy : "relevance"}
                     resultsPerPage={resultsPerPage ? resultsPerPage : "20"}

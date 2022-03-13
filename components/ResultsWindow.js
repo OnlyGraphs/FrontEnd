@@ -4,7 +4,12 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@mui/material';
 
+
+
 /**
+ * 
+ * 
+ * 
  * ResultsWindow component designed to display a list of results and to handle
  * changing the results page and the order in which results are listed
  * Expects to receive in props: 
@@ -23,6 +28,7 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
         this.handleOrderChange = this.handleOrderChange.bind(this)
         this.handlePerPageChange = this.handlePerPageChange.bind(this)
     }
+    
     
     render() { //The map build the result for each document
         return(
@@ -53,8 +59,11 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
                 </div>
                 <ResultsList 
                     docs={this.props.docs} 
+                    suggested_query = {this.props.suggested_query}
                     feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.state.page, resultTitle)}
                     relationSearchCallback = {this.props.relationSearchCallback}
+                    callback={this.props.callback}
+
                 />
 
                 <Select value={this.state.resultsPerPage} onChange={this.handlePerPageChange}>
