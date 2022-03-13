@@ -9,14 +9,13 @@ import { CardContent, Typography, Card, Link, Button, Icon } from '@mui/material
 class RelationalResult extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {wikiLink: "https://simple.wikipedia.org/wiki/" + this.props.title}
     }
 
     render() {
         return(
-            <Card sx={{width: 1}} onClick={this.handleClick}>
+            <Card sx={{width: 1}}>
                 <CardContent>
-                    <Link variant="h5" href={this.state.wikiLink} target="_blank" rel="noopener">
+                    <Link variant="h5" target="_blank" rel="noopener">
                         {this.props.title}
                     </Link>
                     <p>

@@ -9,7 +9,7 @@ import { CardContent, Typography, Card, Link, Button, Icon } from '@mui/material
 class Result extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {wikiLink: "https://simple.wikipedia.org/wiki/" + this.props.title}
+        this.state = {wikiLink: "https://" + this.props.domain + ".wikipedia.org/wiki/" + this.props.title}
     }
 
     render() {

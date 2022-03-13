@@ -66,7 +66,8 @@ function Search() {
     
     //Once the data has been fetched and populated into the data variable
     if (data != null && titles != null) { //Checks if the data has been populated in the variable
-        var docs = JSON.parse(data) //It's parses, sorted and rendered in the return
+        var jsonObj = JSON.parse(data) //It's parses, sorted and rendered in the return
+        var docs = jsonObj.documents
         docs.sort(sortDocuments)
         docs.reverse()
         return (
@@ -83,6 +84,7 @@ function Search() {
                     sortby={sortBy ? sortBy : "relevance"}
                     resultsPerPage={resultsPerPage ? resultsPerPage : "20"}
                     loadTime = {loadTime}
+                    domain = {jsonObj.domain}
                     queryChangeCallback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
                     feedbackCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                     relationSearchCallback={(root) => startRelationalSearch(root, router)}

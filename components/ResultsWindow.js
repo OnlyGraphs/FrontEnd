@@ -52,7 +52,8 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
                     </Typography>
                 </div>
                 <ResultsList 
-                    docs={this.props.docs} 
+                    docs={this.props.docs}
+                    domain={this.props.domain}
                     feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.state.page, resultTitle)}
                     relationSearchCallback = {this.props.relationSearchCallback}
                 />

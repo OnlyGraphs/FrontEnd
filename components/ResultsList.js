@@ -23,6 +23,7 @@ import Link from '@mui/material/Link'
                         id={id} 
                         title={doc.title} 
                         abstract={doc.abstract} 
+                        domain = {this.props.domain}
                         feedbackCallback={this.props.feedbackCallback}
                         relationSearchCallback = {this.props.relationSearchCallback}
                     />

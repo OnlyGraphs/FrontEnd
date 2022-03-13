@@ -66,6 +66,7 @@ function relationSearch() {
         data={graphData}
         loadTime = {loadTime}
         abstractMap={abstractMap}
+        domain = {jsonObj.domain}
         feedbackCallback={(title) => returnFeedback(query, title)}
       />
       </div>

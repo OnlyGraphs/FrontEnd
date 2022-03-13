@@ -42,7 +42,7 @@ const graphConfig = {
      */
     onClickNode = (title) => {
         this.props.feedbackCallback(title)
-        window.open("https://simple.wikipedia.org/wiki/" + title, '_blank')
+        window.open("https://" + this.props.domain + ".wikipedia.org/wiki/" + title, '_blank')
     };
 
     /**
