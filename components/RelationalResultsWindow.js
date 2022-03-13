@@ -16,8 +16,7 @@ const graphConfig = {
         gravity: -300
     },
     node: {
-        color: "lightgray",
-        labelPosition: "top",
+        labelPosition: "top"
     },
     link: {
     }

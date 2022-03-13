@@ -101,7 +101,20 @@ function convertToFormat(apiJSON) {
  * @returns 
  */
 function convertNode(node) {
-  return {id: node.title}
+  var colour = "black"
+  if (node.hops == 1) {
+    colour = "#4691db"
+  } else if(node.hops == 2) {
+    colour = "#75ace4"
+  } else if (node.hops == 3) {
+    colour = "#a3c8ed"
+  } else if (node.hops >= 4) {
+    colour = "#d1e3f6"
+  }
+  return {
+    id: node.title,
+    color: colour
+  }
 }
 
 /**
