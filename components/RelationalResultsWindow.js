@@ -1,12 +1,12 @@
 import React from 'react';
-import {Button, ButtonGroup, Typography} from '@mui/material';
+import {Button, ButtonGroup, Stack, Typography} from '@mui/material';
 import { Graph } from "react-d3-graph";
 import RelationalResult from './RelationalResult';
 
 
 const graphConfig = {
     directed: true,
-    width: 1900,
+    width: 1500,
     height: 600,
     nodeHighlightBehavior: true,
     linkHighlightBehavior: true,
@@ -68,6 +68,7 @@ const graphConfig = {
         return(    
             <div>
                 <Typography>Results fetched in {this.props.loadTime} ms</Typography>
+                <Stack direction="row">
                 <div style={{borderStyle: 'solid'}}>
                     <Graph
                         id="graph-id" // id is mandatory
@@ -78,7 +79,12 @@ const graphConfig = {
                         onMouseOutNode={this.onHoverOut}
                     />
                 </div>
-                <RelationalResult title={this.state.currentTitle} abstract={this.state.currentAbstract} />
+                <RelationalResult 
+                    title={this.state.currentTitle} 
+                    abstract={this.state.currentAbstract}
+                    feedbackCallback={this.props.feedbackCallback}
+                />
+                </Stack>
             </div>
         )
     }
