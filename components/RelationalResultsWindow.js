@@ -18,12 +18,8 @@ const graphConfig = {
     node: {
         color: "lightgray",
         labelPosition: "top",
-        highlightStrokeColor: "black",
-        highlightColor: "lightblue",
-        labelProperty: "Dave"
     },
     link: {
-        highlightColor: "blue",
     }
 }
 
@@ -69,21 +65,21 @@ const graphConfig = {
     }
     
     render() {
-        return(
-            <div sx={{width: 1800}}>
-            <div style={{borderStyle: 'solid'}}>
-            <Graph
-                id="graph-id" // id is mandatory
-                data={this.props.data}
-                config={graphConfig}
-                onClickNode = {this.onClickNode}
-                //onMouseOverNode={this.onHoverIn}
-                //onMouseOutNode={this.onHoverOut}
-            />
-        </div>
-        <Typography>Results fetched in {this.props.loadTime} ms</Typography>
-        <RelationalResult title={this.state.currentTitle} abstract={this.state.currentAbstract} />
-        </div>
+        return(    
+            <div>
+                <Typography>Results fetched in {this.props.loadTime} ms</Typography>
+                <div style={{borderStyle: 'solid'}}>
+                    <Graph
+                        id="graph-id" // id is mandatory
+                        data={this.props.data}
+                        config={graphConfig}
+                        onClickNode = {this.onClickNode}
+                        onMouseOverNode={this.onHoverIn}
+                        onMouseOutNode={this.onHoverOut}
+                    />
+                </div>
+                <RelationalResult title={this.state.currentTitle} abstract={this.state.currentAbstract} />
+            </div>
         )
     }
 }
