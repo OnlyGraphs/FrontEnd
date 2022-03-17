@@ -85,6 +85,8 @@ function Search() {
                     resultsPerPage={resultsPerPage ? resultsPerPage : "20"}
                     loadTime = {loadTime}
                     domain = {jsonObj.domain}
+                    suggestedQuery={jsonObj.suggested_query}
+                    suggestionCallback={(query) => suggestionCallback(query, router)}
                     queryChangeCallback={(sortBy, page, resultsPerPage) => {makeRequest(query, sortBy, page, resultsPerPage, router);}}
                     feedbackCallback={(pageOfResult, resultTitle) => returnFeedback(query, pageOfResult, resultTitle)}
                     relationSearchCallback={(root) => startRelationalSearch(root, router)}
@@ -169,6 +171,10 @@ function goToAdvanced(router) {
  */
 function sortDocuments(n1, n2) {
     return n1.score - n2.score;
+}
+
+function suggestionCallback(query, router){
+    router.push("/search?query=" + encodeURIComponent(query))
 }
 
 export default Search

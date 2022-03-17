@@ -54,6 +54,8 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
                 <ResultsList 
                     docs={this.props.docs}
                     domain={this.props.domain}
+                    suggestedQuery={this.props.suggestedQuery}
+                    suggestionCallback={this.props.suggestionCallback}
                     feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.state.page, resultTitle)}
                     relationSearchCallback = {this.props.relationSearchCallback}
                 />
