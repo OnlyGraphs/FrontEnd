@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import RelationResultsWindow from '../components/RelationalResultsWindow';
 import nodeConst from 'react-d3-graph/lib/components/node/node.const';
 import RelationSearch from '../components/RelationSearch';
+import { Card, Typography, CardContent } from '@mui/material';
 
 /**
  * The results page for relational searches
@@ -52,25 +53,48 @@ function relationSearch() {
     let jsonObj = JSON.parse(data)
     let graphData = convertToFormat(jsonObj)
     let abstractMap = makeAbstractMap(jsonObj)
-    return (
-      <div>
-      <RelationSearch 
-        root={root} 
-        hops={hops} 
-        query={query} 
-        maxResults={maxResults ? maxResults : 20}
-        callback={(hops, query, maxResults) => makeRequest(root, hops, query, maxResults, router)}
-        returnCallback={(root) => returnToSearchResults(root, router)}
-      />
-      <RelationResultsWindow
-        data={graphData}
-        loadTime = {loadTime}
-        abstractMap={abstractMap}
-        domain = {jsonObj.domain}
-        feedbackCallback={(title) => returnFeedback(query, title)}
-      />
-      </div>
-    )
+    console.log(graphData.nodes.length)
+    if (graphData.nodes.length == 0) {
+      return(
+        <div>
+        <RelationSearch 
+          root={root} 
+          hops={hops} 
+          query={query} 
+          maxResults={maxResults ? maxResults : 20}
+          callback={(hops, query, maxResults) => makeRequest(root, hops, query, maxResults, router)}
+          returnCallback={(root) => returnToSearchResults(root, router)}
+        />
+        <Card sx={{width: 1}}>
+          <CardContent>
+              <Typography sx={{color: 'red', textAlign: 'center'}} variant="h4">
+                  No Results Found
+              </Typography>
+          </CardContent>
+        </Card>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+        <RelationSearch 
+          root={root} 
+          hops={hops} 
+          query={query} 
+          maxResults={maxResults ? maxResults : 20}
+          callback={(hops, query, maxResults) => makeRequest(root, hops, query, maxResults, router)}
+          returnCallback={(root) => returnToSearchResults(root, router)}
+        />
+        <RelationResultsWindow
+          data={graphData}
+          loadTime = {loadTime}
+          abstractMap={abstractMap}
+          domain = {jsonObj.domain}
+          feedbackCallback={(title) => returnFeedback(query, title)}
+        />
+        </div>
+      )
+    }
   } else { //While still waiting for the data to arrive
     return (
       <div>
@@ -96,7 +120,7 @@ function maxPageRank(nodes) {
  */
 function convertToFormat(apiJSON) {
   let maxScore = maxPageRank(apiJSON.documents)
-  console.log("Max Rank: " + maxScore)
+  //console.log("Max Rank: " + maxScore)
   let graphNodes = apiJSON.documents.map(node => convertNode(node, maxScore))
   let relations = apiJSON.relations.map(link => convertRelation(link))
   return {nodes: graphNodes, links: relations}
@@ -120,7 +144,7 @@ function convertNode(node, maxScore) {
     colour = "#d1e3f6"
   }
 
-  console.log(200 * (node.score / maxScore))
+  //console.log(200 * (node.score / maxScore))
 
   return {
     id: node.title,
