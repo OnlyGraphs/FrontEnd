@@ -11,7 +11,11 @@ import Autocomplete from '@mui/material/Autocomplete';
 class SimpleSearch extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {query: this.props.query, currentTitles: this.props.titles};
+      this.state = {
+        query: this.props.query, 
+        currentTitles: this.props.titles, 
+        maxResultsShown: this.props.maxResultsShown ? this.props.maxResultsShown : "10"
+      };
       this.handleOnChange = this.handleOnChange.bind(this)
       this.handleClick = this.handleClick.bind(this);
       this.enterHunt = this.enterHunt.bind(this)
@@ -57,7 +61,12 @@ class SimpleSearch extends React.Component {
     }
 
     filterTitles(newQuery) {
-      this.setState({currentTitles: this.props.titles.filter(title => title.includes(newQuery))})
+      if (newQuery == "" || typeof newQuery == "undefined") {
+        console.log("Here")
+        this.setState({currentTitles: []})
+      } else {
+        this.setState({currentTitles: this.props.titles.filter(title => title.includes(newQuery))})
+      }
     }
     
     render() {
@@ -73,7 +82,7 @@ class SimpleSearch extends React.Component {
             fullWidth
             value={this.state.query}
             id="combo-box-demo"
-            options={this.state.currentTitles.slice(0,20)}
+            options={this.state.currentTitles.slice(0,this.state.maxResultsShown)}
             onChange={this.autocompleteOnChange}
             onKeyUp={this.enterHunt} //Uses on key up to allow the autocomplete to fire first (hacky fix but whatever)
             renderInput={

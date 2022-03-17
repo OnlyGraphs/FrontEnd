@@ -77,6 +77,7 @@ function Search() {
                     advancedCallback = {() => goToAdvanced(router)}
                     query={query}
                     titles={titles}
+                    maxResultsShown={3}
                 />
                 <ResultsWindow 
                     docs={docs}
