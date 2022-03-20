@@ -17,7 +17,6 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
  class ResultsWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {page: this.props.page, sortby: this.props.sortby, resultsPerPage: this.props.resultsPerPage}
         this.handleBackClick = this.handleBackClick.bind(this)
         this.handleForwardClick = this.handleForwardClick.bind(this)
         this.handleOrderChange = this.handleOrderChange.bind(this)
@@ -33,14 +32,14 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
                             <ArrowBackIcon />
                         </IconButton>
                         <Button variant="contained">
-                            {this.state.page}
+                            {this.props.page}
                         </Button>
                         <IconButton onClick={this.handleForwardClick}>
                             <ArrowForwardIcon />
                         </IconButton>
                     </ButtonGroup>
                     
-                    <Select value={this.state.sortby} sx={{mt: 2}} onChange={this.handleOrderChange}>
+                    <Select value={this.props.sortby} sx={{mt: 2}} onChange={this.handleOrderChange}>
                         <MenuItem disabled value="">
                             <em>Sort By</em>
                         </MenuItem>
@@ -56,11 +55,11 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
                     domain={this.props.domain}
                     suggestedQuery={this.props.suggestedQuery}
                     suggestionCallback={this.props.suggestionCallback}
-                    feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.state.page, resultTitle)}
+                    feedbackCallback={(resultTitle) => this.props.feedbackCallback(this.props.page, resultTitle)}
                     relationSearchCallback = {this.props.relationSearchCallback}
                 />
 
-                <Select value={this.state.resultsPerPage} onChange={this.handlePerPageChange}>
+                <Select value={this.props.resultsPerPage} onChange={this.handlePerPageChange}>
                     <MenuItem disabled value="">
                         <em>Results Displayed per Page</em>
                     </MenuItem>
@@ -76,25 +75,25 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
     }
 
     handleBackClick = () => {
-        if (this.state.page !== "1" && this.state.page !== 1) {
-            var newPage = (Number(this.state.page) - 1).toString()
-            this.setState({page: newPage}, this.props.queryChangeCallback(this.state.sortby, newPage, this.state.resultsPerPage))
+        if (this.props.page !== "1" && this.props.page !== 1) {
+            var newPage = (Number(this.props.page) - 1).toString()
+            this.props.queryChangeCallback(this.props.sortby, newPage, this.props.resultsPerPage)
         }
     }
 
     handleForwardClick = () => {
-        if (this.state.page !== "0" && this.state.page !== 0) {
-            var newPage = (Number(this.state.page) + 1).toString()
-            this.setState({page: newPage}, this.props.queryChangeCallback(this.state.sortby, newPage, this.state.resultsPerPage))
+        if (this.props.page !== "0" && this.props.page !== 0) {
+            var newPage = (Number(this.props.page) + 1).toString()
+            this.props.queryChangeCallback(this.props.sortby, newPage, this.props.resultsPerPage)
         }
     }
 
     handleOrderChange = (event) => {
-        this.setState({sortby: event.target.value}, this.props.queryChangeCallback(event.target.value, this.state.page, this.state.resultsPerPage))
+        this.props.queryChangeCallback(event.target.value, this.props.page, this.props.resultsPerPage)
     }
 
     handlePerPageChange = (event) => {
-        this.setState({resultsPerPage: event.target.value}, this.props.queryChangeCallback(this.state.sortby, this.state.page, event.target.value))
+        this.props.queryChangeCallback(this.props.sortby, this.props.page, event.target.value)
     }
 
 }
