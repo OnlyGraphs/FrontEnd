@@ -76,14 +76,14 @@ import { IconButton, Button, ButtonGroup, Select, MenuItem, Typography } from '@
     }
 
     handleBackClick = () => {
-        if (this.state.page !== "1") {
+        if (this.state.page !== "1" && this.state.page !== 1) {
             var newPage = (Number(this.state.page) - 1).toString()
             this.setState({page: newPage}, this.props.queryChangeCallback(this.state.sortby, newPage, this.state.resultsPerPage))
         }
     }
 
     handleForwardClick = () => {
-        if (this.state.page !== "0") {
+        if (this.state.page !== "0" && this.state.page !== 0) {
             var newPage = (Number(this.state.page) + 1).toString()
             this.setState({page: newPage}, this.props.queryChangeCallback(this.state.sortby, newPage, this.state.resultsPerPage))
         }
