@@ -129,19 +129,14 @@ function relationSearch() {
   }
 }
 
-function maxPageRank(nodes) {
-  let scores = nodes.map(node => node.score)
-  return Math.max.apply(Math, scores)
-}
 
 /**
  * Convert the API's response to the format I need to pass to the graph in child components
  * @param apiJSON 
  */
 function convertToFormat(apiJSON) {
-  let maxScore = maxPageRank(apiJSON.documents)
   //console.log("Max Rank: " + maxScore)
-  let graphNodes = apiJSON.documents.map(node => convertNode(node, maxScore))
+  let graphNodes = apiJSON.documents.map(node => convertNode(node))
   let relations = apiJSON.relations.map(link => convertRelation(link))
   return {nodes: graphNodes, links: relations}
 
@@ -152,7 +147,7 @@ function convertToFormat(apiJSON) {
  * @param {*} node See API Docs for information on its structure
  * @returns 
  */
-function convertNode(node, maxScore) {
+function convertNode(node) {
   var colour = "black"
   if (node.hops == 1) {
     colour = "#4691db"
@@ -164,12 +159,10 @@ function convertNode(node, maxScore) {
     colour = "#d1e3f6"
   }
 
-  //console.log(200 * (node.score / maxScore))
-
   return {
     id: node.title,
     color: colour,
-    size: 100 + 200 * (node.score / maxScore)
+    size: 100 + 200 * node.score
   }
 }
 
