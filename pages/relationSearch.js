@@ -29,24 +29,44 @@ function relationSearch() {
 
   //Sets variables for client side data fetching
   const [data, setData] = useState(null) //The search results
-  const [isLoading, setLoading] = useState(false)
+  const [loadingError, setLoadingError] = useState(false)
   const [loadTime, setLoadTime] = useState(-1) //The time it takes to get the response
 
   //Gets data from backend
   useEffect(() => {
     if (router.isReady) { //If the URL parameters have been fetched
       var start = Date.now()
-      setLoading(true)
       fetch(uri)
-        .then((res) => res.text())
+        .then((res) => {
+          if (res.status == 422 || res.status == 400) {
+              setLoadingError(true)
+              console.log(res.text())
+              return ""
+          } else {
+              return res.text()
+          }
+        })        
         .then((data) => {
           setData(data)
           setLoadTime(Date.now()-start)
-          setLoading(false)
         })
+        .catch((error) => {
+          setLoadingError(true)
+          console.log(error)
+      })
     }
   }, [router.query])
 
+  if (loadingError) {
+    return(
+        <div>
+            <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
+            <p>
+                There has been an error attempting to fetch your request. You can find more details in the console.
+            </p>
+        </div>
+    )
+  }
   
   //Once the data has been fetched and populated into the data variable
   if (data != null) { //Checks if the data has been populated in the variable

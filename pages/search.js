@@ -31,38 +31,67 @@ function Search() {
     //Sets variables for client side data fetching
     const [data, setData] = useState(null)
     const [loadTime, setLoadTime] = useState(-1)
-    const [isLoading, setLoading] = useState(false)
+    const [loadingError, setLoadingError] = useState(false)
   
     //Gets data from backend
     useEffect(() => {
       if (router.isReady) { //If the URL parameters have been fetched
         var start = Date.now()
-        console.log(uri)
-        setLoading(true)
         fetch(uri)
-        .then((res) => res.text())
+        .then((res) => {
+            if (res.status == 422 || res.status == 400) {
+                setLoadingError(true)
+                console.log(res.text())
+                return ""
+            } else {
+                return res.text()
+            }
+        })
         .then((data) => {
             setData(data)
-            setLoading(false)
             setLoadTime(Date.now()-start)
+        })
+        .catch((error) => {
+            setLoadingError(true)
+            console.log(error)
         })
       }
     }, [router.query])
 
     //Sets variables for client side data fetching
     const [titles, setTitles] = useState(null)
-    const [alsoLoading, setAlsoLoading] = useState(false)
 
     //Gets title data
     useEffect(() => {
-        setAlsoLoading(true)
         fetch(process.env.NEXT_PUBLIC_BACKEND + "/static/articleTitles.txt")
-        .then((res) => res.text())
+        .then((res) => {
+            if (res.status == 422 || res.status == 400) {
+                setLoadingError(true)
+                console.log(res.text())
+                return ""
+            } else {
+                return res.text()
+            }
+        })
         .then((data) => {
             setTitles(data.split("\n"))
-            setAlsoLoading(false)
+        })
+        .catch((error) => {
+            setLoadingError(true)
+            console.log(error)
         })
     }, [])
+
+    if (loadingError) {
+        return(
+            <div>
+                <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
+                <p>
+                    There has been an error attempting to fetch your request. You can find more details in the console.
+                </p>
+            </div>
+        )
+    }
     
     //Once the data has been fetched and populated into the data variable
     if (data != null && titles != null) { //Checks if the data has been populated in the variable
@@ -144,7 +173,6 @@ function returnFeedback(query, pageOfResult, resultTitle) {
     if (resultTitle != null) {
         uri = uri + "&choosenResult=" + resultTitle
     }
-    console.log(uri)
     fetch(uri)
 }
 
