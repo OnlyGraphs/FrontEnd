@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
+import { Stack } from '@mui/material';
 
 /**
  * Simple component contains just a search box and a button to press
@@ -25,7 +26,7 @@ class SimpleSearch extends React.Component {
 
     componentDidMount() {
       this.filterTitles(this.state.query) //Filters the titles down to the relevant ones once the component has loaded
-    } //Otherwise it shows the default list
+    }
 
     /**
      * Handles the event in which the user presses the search button
@@ -77,28 +78,33 @@ class SimpleSearch extends React.Component {
 
       return (
         <div>
-          <Autocomplete
-            freeSolo
-            fullWidth
-            value={this.state.query}
-            id="combo-box-demo"
-            options={this.state.currentTitles.slice(0,this.state.maxResultsShown)}
-            onChange={this.autocompleteOnChange}
-            onKeyUp={this.enterHunt} //Uses on key up to allow the autocomplete to fire first (hacky fix but whatever)
-            renderInput={
-              (params) => 
-              <TextField 
-                {...params}
-                variant="outlined"
-                value={this.state.query}
-                onChange={this.handleOnChange}
-              />
-            }
-          />
-          <div style={{float: 'right'}}>
-            <Button sx={{mr: 1}} variant="outlined" onClick={this.props.advancedCallback}>Advanced Search</Button>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}
+          >
+            <Autocomplete
+              freeSolo
+              fullWidth
+              value={this.state.query}
+              id="combo-box-demo"
+              options={this.state.currentTitles.slice(0,this.state.maxResultsShown)}
+              onChange={this.autocompleteOnChange}
+              onKeyUp={this.enterHunt} //Uses on key up to allow the autocomplete to fire first (hacky fix but whatever)
+              renderInput={
+                (params) => 
+                <TextField 
+                  {...params}
+                  variant="outlined"
+                  value={this.state.query}
+                  onChange={this.handleOnChange}
+                />
+              }
+            />
+            <Button sx={{mr: 1, mt:0}} variant="outlined" onClick={this.props.advancedCallback}>Advanced</Button>
             <Button variant="contained" onClick={this.handleClick} >Search</Button>
-          </div>
+          </Stack>
         </div>
       );
     }
