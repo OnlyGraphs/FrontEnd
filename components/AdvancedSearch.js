@@ -30,7 +30,11 @@ class AdvancedSearch extends React.Component {
    * @param {*} event 
    */
   handleClick(event) {
-    this.props.callback(this.buildFinalResult())
+    var finalQuery = this.buildFinalResult()
+    console.log(finalQuery)
+    if (typeof finalQuery != "undefined" &&  finalQuery != "undefined") {
+      this.props.callback(finalQuery)
+    }
   }
 
   /**
