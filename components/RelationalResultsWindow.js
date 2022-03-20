@@ -7,7 +7,7 @@ import RelationalResult from './RelationalResult';
 const graphConfig = {
     directed: true,
     width: 1500,
-    height: 600,
+    height: 700,
     nodeHighlightBehavior: true,
     linkHighlightBehavior: true,
     highlightDegree: 2,
