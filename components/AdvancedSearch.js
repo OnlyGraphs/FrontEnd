@@ -128,6 +128,13 @@ class AdvancedSearch extends React.Component {
       const standardSX = { mt: 1, width: 400 }
       return (
         <div>
+          <Typography variant="h3">
+            Advanced Search
+          </Typography>
+          <p>
+            Below you can see a number of options for the more advanced search features. You can combine multiple of these features
+            and the search engine will find pages that fit all the features. You can see how to form advanced queries <a href="\advancedQueries">here</a>
+          </p>
           <Stack direction="row">
             <TextField sx={standardSX} name="andBox" value={this.state.andBox} label="These Words" variant="standard" onChange={this.handleChange}/>
             <Typography sx={{mt:4, ml:34.5}}>Will Search for Pages with ALL of these words (Equivalent to an AND operation)</Typography>
