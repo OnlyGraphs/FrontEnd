@@ -55,7 +55,9 @@ class AdvancedSearch extends React.Component {
     } else if (event.target.name == "distWord2") {
       this.setState({distWord2: event.target.value})
     } else if (event.target.name == "dist") {
-      this.setState({dist: event.target.value})
+      if (event.target.value >= 1) {
+        this.setState({dist: event.target.value})
+      }
     } else if (event.target.name == "structType") {
       this.setState({structType: event.target.value})
     } else if (event.target.name == "structQuery") {
