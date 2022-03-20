@@ -8,9 +8,8 @@ const graphConfig = {
     directed: true,
     width: 1500,
     height: 700,
-    nodeHighlightBehavior: true,
-    linkHighlightBehavior: true,
     highlightDegree: 2,
+    staticGraphWithDragAndDrop: true,
     d3: {
         linkLength: 400,
         gravity: -300
