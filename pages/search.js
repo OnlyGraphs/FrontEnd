@@ -72,6 +72,7 @@ function Search() {
         docs.reverse()
         return (
             <div>
+                <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
                 <SimpleSearch 
                     callback={(val) => {makeRequest(val, null, null, null, router);}}
                     advancedCallback = {() => goToAdvanced(router)}
@@ -163,6 +164,10 @@ function startRelationalSearch(root, router) {
 function goToAdvanced(router) {
     router.push("/advanced")
   }
+
+function goToIndex(router) {
+    router.push("/")
+}
 
 /**
  * Comparison method that can be used to sort the results, standard method
