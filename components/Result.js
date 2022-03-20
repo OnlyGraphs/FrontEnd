@@ -9,7 +9,6 @@ import { CardContent, Typography, Card, Link, Button, Icon } from '@mui/material
 class Result extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {wikiLink: "https://" + this.props.domain + ".wikipedia.org/wiki/" + this.props.title}
     }
 
     render() {
@@ -41,7 +40,7 @@ class Result extends React.Component {
             this.props.relationSearchCallback(this.props.title)
         } else { //Otherwise its presumed to be trying to open the search result
             this.props.feedbackCallback(this.props.title)
-            window.open(this.state.wikiLink, '_blank')
+            window.open("https://" + this.props.domain + ".wikipedia.org/wiki/" + this.props.title, '_blank')
         }
     }
 }
