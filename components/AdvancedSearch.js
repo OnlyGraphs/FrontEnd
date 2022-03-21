@@ -102,11 +102,6 @@ class AdvancedSearch extends React.Component {
       individualBoxResults.push(ORString)
     }
 
-    if (this.state.dist != "" && this.state.distWord1 != "" && this.state.distWord2 != "") {
-      var distString = "#DIST," + this.state.dist + "," + this.state.distWord1 + "," + this.state.distWord2
-      individualBoxResults.push(distString)
-    }
-
     if (this.state.structType != "" && this.state.structQuery != "") {
       var structString = "#" + this.state.structType + "," + this.state.structQuery
       individualBoxResults.push(structString)
@@ -115,6 +110,11 @@ class AdvancedSearch extends React.Component {
     if (this.state.infoBoxName != "" && this.state.infoBoxQuery != "") {
       var infoString = '#' + this.state.infoBoxName + " " + this.state.infoBoxQuery
       individualBoxResults.push(infoString)
+    }
+
+    if (this.state.dist != "" && this.state.distWord1 != "" && this.state.distWord2 != "") {
+      var distString = "#DIST," + this.state.dist + "," + this.state.distWord1 + "," + this.state.distWord2
+      individualBoxResults.push(distString)
     }
 
     return this.arrayFold(individualBoxResults, ",AND,") //At the end all the individual inputs are ANDed together
