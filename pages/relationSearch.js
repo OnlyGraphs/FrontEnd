@@ -52,6 +52,7 @@ function relationSearch() {
         })
         .catch((error) => {
           setLoadingError(true)
+          setData(error)
           console.log(error)
       })
     }
@@ -62,7 +63,8 @@ function relationSearch() {
         <div>
             <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
             <p>
-                There has been an error attempting to fetch your request. You can find more details in the console.
+                There has been an error attempting to fetch your request. You can find more details in the console.<br/>
+                {data}
             </p>
         </div>
     )
@@ -162,7 +164,7 @@ function convertNode(node) {
   return {
     id: node.title,
     color: colour,
-    size: 100 + 200 * node.score
+    size: 100 + 600 * node.score
   }
 }
 
