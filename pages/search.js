@@ -65,7 +65,7 @@ function Search() {
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_BACKEND + "/static/articleTitles.txt")
         .then((res) => {
-            if (res.status == 422 || res.status == 400) {
+            if (res.status != 200) {
                 setLoadingError(true)
                 console.log(res.text())
                 return ""
