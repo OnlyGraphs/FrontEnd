@@ -19,6 +19,8 @@ class AdvancedSearch extends React.Component {
       dist: "",
       structType: "",
       structQuery: "",
+      infoBoxName: "",
+      infoBoxQuery: "",
       finalResult: ""
     }
     this.handleChange = this.handleChange.bind(this)
@@ -62,6 +64,10 @@ class AdvancedSearch extends React.Component {
       this.setState({structType: event.target.value})
     } else if (event.target.name == "structQuery") {
       this.setState({structQuery: event.target.value})
+    } else if (event.target.name == "infoBoxName") {
+      this.setState({infoBoxName: event.target.value})
+    } else if (event.target.name == "infoBoxQuery") {
+      this.setState({infoBoxQuery: event.target.value})
     }
   }
 
@@ -104,6 +110,11 @@ class AdvancedSearch extends React.Component {
     if (this.state.structType != "" && this.state.structQuery != "") {
       var structString = "#" + this.state.structType + "," + this.state.structQuery
       individualBoxResults.push(structString)
+    }
+
+    if (this.state.infoBoxName != "" && this.state.infoBoxQuery != "") {
+      var infoString = '#' + this.state.infoBoxName + " " + this.state.infoBoxQuery
+      individualBoxResults.push(infoString)
     }
 
     return this.arrayFold(individualBoxResults, ",AND,") //At the end all the individual inputs are ANDed together
@@ -172,6 +183,11 @@ class AdvancedSearch extends React.Component {
               <TextField sx={{ mt: 0, ml: 1, width: 200 }} name="structQuery" value={this.state.structQuery} label="Search Term" variant="standard" onChange={this.handleChange}/>
             </div>
             <Typography sx={{mt:4, ml:8.5}}>Will Search within the selected structual elements for the given search term(s)</Typography>
+          </Stack>
+          <Stack direction="row">
+            <TextField sx={{ mt: 1, mr: 1, width: 300 }} name="infoBoxName" value={this.state.infoBoxName} label="Infobox Type" variant="standard" onChange={this.handleChange}/>
+            <TextField sx={{ mt: 1, mr: 1, width: 300 }} name="infoBoxQuery" value={this.state.infoBoxQuery} label="Query" variant="standard" onChange={this.handleChange}/>
+            <Typography sx={{mt:4, ml:7.5}}>Will Search for pages with the given Infobox Type and that fit the given query</Typography>
           </Stack>
           <Button sx={{mt: 4, ml: 2}} variant="contained" onClick={this.handleClick}>Search</Button>
         </div>
