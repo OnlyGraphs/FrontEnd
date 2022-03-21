@@ -74,6 +74,7 @@ import Link from '@mui/material/Link'
         if (this.props.docs.length == 0) {
             return(
                 <div>
+                    {this.suggestionBox()}
                     {this.noResults()}
                 </div>
             )
