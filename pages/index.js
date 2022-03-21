@@ -25,11 +25,14 @@ function Home() {
         })
     }, [])
 
-  if (!isLoading && titles !=null) { //Once the client side fetching is complete the main welcome page can be displayed
+  if (!isLoading && titles !=null) { //Once the client side fetching is complete the main welcome page can be displayed //Colour: #dfdfdf
     return (
       <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-        <video src='./static/output.mp4' width='960' height={540} loop={false} autoPlay={true}></video>
+        <video src='./static/closeWhite.mp4' width='960' height={540} loop={false} autoPlay={true}></video>
         <br></br>
+        <Head>
+          <style>{'body { background-color: white; }'}</style>
+        </Head>
         <SimpleSearch 
           callback={(val) => {makeRequest(val, router);} }
           advancedCallback={() => goToAdvanced(router)}
