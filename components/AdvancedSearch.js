@@ -133,10 +133,10 @@ class AdvancedSearch extends React.Component {
           <Typography variant="h3">
             Advanced Search
           </Typography>
-          <p>
+          <Typography>
             Below you can see a number of options for the more advanced search features. You can combine multiple of these features
             and the search engine will find pages that fit all the features. You can see how to form advanced queries <a href="\advancedQueries">here</a>
-          </p>
+          </Typography>
           <Stack direction="row">
             <TextField sx={standardSX} name="andBox" value={this.state.andBox} label="These Words" variant="standard" onChange={this.handleChange}/>
             <Typography sx={{mt:4, ml:34.5}}>Will Search for Pages with ALL of these words (Equivalent to an AND operation)</Typography>
@@ -168,7 +168,6 @@ class AdvancedSearch extends React.Component {
                 <MenuItem value={"CATEGORY"}>Category</MenuItem>
                 <MenuItem value={"CITATION"}>Citation</MenuItem>
                 <MenuItem value={"INFOBOX_TEMPLATE_NAME"}>Template (Info Box?)</MenuItem>
-                <MenuItem value={"TITLE"}>Title</MenuItem>
               </Select>
               <TextField sx={{ mt: 0, ml: 1, width: 200 }} name="structQuery" value={this.state.structQuery} label="Search Term" variant="standard" onChange={this.handleChange}/>
             </div>
