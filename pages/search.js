@@ -88,6 +88,7 @@ function Search() {
                 <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
                 <p>
                     There has been an error attempting to fetch your request. You can find more details in the console.
+                    {data}
                 </p>
             </div>
         )

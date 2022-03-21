@@ -52,7 +52,6 @@ function relationSearch() {
         })
         .catch((error) => {
           setLoadingError(true)
-          setData(error)
           console.log(error)
       })
     }
