@@ -37,6 +37,7 @@ function Search() {
     useEffect(() => {
       if (router.isReady) { //If the URL parameters have been fetched
         var start = Date.now()
+        setData(null)
         fetch(uri)
         .then((res) => {
             if (res.status != 200) {
@@ -61,6 +62,7 @@ function Search() {
 
     //Gets title data
     useEffect(() => {
+        setData(null)
         fetch(process.env.NEXT_PUBLIC_BACKEND + "/static/articleTitles.txt")
         .then((res) => {
             if (res.status != 200) {
