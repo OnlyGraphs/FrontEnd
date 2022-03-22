@@ -17,6 +17,8 @@ const graphConfig = {
         labelPosition: "top"
     },
     link: {
+        markerHeight: 3,
+        markerWidth: 3
     }
 }
 
