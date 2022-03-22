@@ -62,9 +62,11 @@ function relationSearch() {
             <Head>
               <title>Only Graphs - Error Loading</title>
             </Head>
-            <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
+            <Link href="/">
+                  <img width={144} height={81} src='./static/coolLogo.png'/>
+            </Link>
             <p>
-                There has been an error attempting to fetch your request. You can find more details in the console.<br/>
+                There has been an error attempting to fetch your request. You can find more details in the console. You can return to the main page by clicking the logo above.
                 {data}
             </p>
         </div>

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { useRouter } from 'next/router'
 import SimpleSearch from '../components/SimpleSearch';
 import ResultsWindow from '../components/ResultsWindow';
+import { Link } from '@mui/material';
 
 /**
  * This is the 'results' page, as in it takes as URI path parameters that contain the query,
@@ -86,9 +87,11 @@ function Search() {
                 <Head>
                     <title>OnlyGraphs - Error Loading</title>
                 </Head>
-                <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
+                <Link href="/">
+                    <img width={144} height={81} src='./static/coolLogo.png'/>
+                </Link>
                 <p>
-                    There has been an error attempting to fetch your request. You can find more details in the console.
+                    There has been an error attempting to fetch your request. You can find more details in the console. You can return to the main page by clicking the logo above.
                     {data}
                 </p>
             </div>
