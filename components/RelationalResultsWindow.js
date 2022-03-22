@@ -9,10 +9,9 @@ const graphConfig = {
     width: 1500,
     height: 700,
     highlightDegree: 2,
-    staticGraphWithDragAndDrop: true,
     d3: {
         linkLength: 400,
-        gravity: -300
+        gravity: -200
     },
     node: {
         labelPosition: "top"
