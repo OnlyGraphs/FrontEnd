@@ -178,7 +178,6 @@ class AdvancedSearch extends React.Component {
               <Select sx={{ mt: 2, width: 400 }} name="structType" value={this.state.structType} label="Structural Element" variant="standard" labelId='structLabel' onChange={this.handleChange}>
                 <MenuItem value={"CATEGORY"}>Category</MenuItem>
                 <MenuItem value={"CITATION"}>Citation</MenuItem>
-                <MenuItem value={"INFOBOX_TEMPLATE_NAME"}>Template (Info Box?)</MenuItem>
               </Select>
               <TextField sx={{ mt: 0, ml: 1, width: 200 }} name="structQuery" value={this.state.structQuery} label="Search Term" variant="standard" onChange={this.handleChange}/>
             </div>
