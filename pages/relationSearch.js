@@ -41,10 +41,8 @@ function relationSearch() {
           if (res.status != 200) {
               setLoadingError(true)
               console.log(res.text())
-              return ""
-          } else {
-              return res.text()
           }
+          return res.text()
         })        
         .then((data) => {
           setData(data)

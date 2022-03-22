@@ -39,13 +39,11 @@ function Search() {
         var start = Date.now()
         fetch(uri)
         .then((res) => {
-            if (res.status == 422 || res.status == 400) {
+            if (res.status != 200) {
                 setLoadingError(true)
                 console.log(res.text())
-                return ""
-            } else {
-                return res.text()
             }
+            return res.text()
         })
         .then((data) => {
             setData(data)
@@ -68,10 +66,8 @@ function Search() {
             if (res.status != 200) {
                 setLoadingError(true)
                 console.log(res.text())
-                return ""
-            } else {
-                return res.text()
             }
+            return res.text()
         })
         .then((data) => {
             setTitles(data.split("\n"))
