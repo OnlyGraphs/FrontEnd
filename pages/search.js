@@ -81,6 +81,9 @@ function Search() {
     if (loadingError) {
         return(
             <div>
+                <Head>
+                    <title>OnlyGraphs - Error Loading</title>
+                </Head>
                 <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
                 <p>
                     There has been an error attempting to fetch your request. You can find more details in the console.
@@ -98,6 +101,9 @@ function Search() {
         docs.reverse()
         return (
             <div>
+                <Head>
+                    <title>OnlyGraphs - Results</title>
+                </Head>
                 <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
                 <SimpleSearch 
                     callback={(val) => {makeRequest(val, null, null, null, router);}}
@@ -126,6 +132,7 @@ function Search() {
             <div>
             <Head>
             <style>{'body { background-color: #d2d2d2; }'}</style>
+            <title>Loading Results</title>
             </Head>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>

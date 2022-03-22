@@ -11,7 +11,12 @@ import AdvancedSearch from '../components/AdvancedSearch';
 function Advanced() {
     const router = useRouter()
     return(
+        <div>
+        <Head>
+            <title>OnlyGraphs - Advanced Search</title>
+        </Head>
         <AdvancedSearch callback={(query) => makeRequest(query, null, null, null, router)}></AdvancedSearch>
+        </div>
     )
 }
 

@@ -32,6 +32,7 @@ function Home() {
         <br></br>
         <Head>
           <style>{'body { background-color: white; }'}</style>
+          <title>OnlyGraphs</title>
         </Head>
         <SimpleSearch 
           callback={(val) => {makeRequest(val, router);} }
@@ -45,6 +46,7 @@ function Home() {
       <div>
       <Head>
         <style>{'body { background-color: #d2d2d2; }'}</style>
+        <title>Only Graphs - Loading</title>
       </Head>
       <div style={{display: 'flex', justifyContent: 'center'}}>
           <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>

@@ -7,6 +7,9 @@ function advancedQueries() {
 
     return (
         <div>
+            <Head>
+              <title>Only Graphs - Advanced Query Writing</title>
+            </Head>
             <h3>A simple guide to using advanced queries</h3>
                 
                 <p>Instead of just searching for single words and phrases, OnlyGraphs allows users to compose advanced queries that allow users to narrow down and improve their search results.These advanced queries include binary and unary queries, relational queries, structural queries and linked queries. Subqueries can be simple terms, or complex queries. </p>
@@ -43,14 +46,13 @@ function advancedQueries() {
             <p>Query [7] returns pages containing the term &ldquo;Pumpkin Seed&rdquo; and are within four hops (that is, reachable by clicking on four links) from the page titled &ldquo;Hamsters&rdquo;. Query [8] shows the use of subqueries within a relational query: the query returns all documents within four hops of the page titled &ldquo;Hamsters&rdquo; that either contain &ldquo;Pumpkin Seed&rdquo; or &ldquo;Sunflower Seed&rdquo;, or both. Structural Queries Structural queries allow users to filter pages depending on different parts of an article, such as the title, citations, or info box. In addition, structural queries allow users to search for articles in specific categories</p>
 
             <p style={{outlineStyle: 'solid', textAlign: 'center'}}>
-                 #TITLE,Hamsters [9] #CATEGORY, Hamsters,OR,Rodents [10] <br/>
                  #CITATION,Douglas Harper The Online Etymology Dictionary [11] <br/>
                  #CELEBRITY,Keanu Reeves [12]
             </p>
 
             <p>Figure 4: Examples of structural queries</p>
 
-            <p>Query [9] filters for articles containing the term &ldquo;Hamster&rdquo; in their titles. Query [10] filters for articles belonging to the categories &ldquo;Hamsters&rdquo; or &ldquo;Rodents&rdquo;, or both. This query shows the use of subqueries within a structural query. These subqueries can be much more complex. Example [11] searches for articles that cite &ldquo;Douglas Harper, The Online Etymology Dictionary&rdquo;. Query [12] filters out articles whose info box is not of type celebrity or whose celebrity-type info box does not contain &ldquo;Keanu Reeves&rdquo;. Distance Queries Distance queries search for terms that are exactly n terms apart, where n is a positive integer.</p>
+            <p>Query [10] filters for articles belonging to the categories &ldquo;Hamsters&rdquo; or &ldquo;Rodents&rdquo;, or both. This query shows the use of subqueries within a structural query. These subqueries can be much more complex. Example [11] searches for articles that cite &ldquo;Douglas Harper, The Online Etymology Dictionary&rdquo;. Query [12] filters out articles whose info box is not of type celebrity or whose celebrity-type info box does not contain &ldquo;Keanu Reeves&rdquo;. Distance Queries Distance queries search for terms that are exactly n terms apart, where n is a positive integer.</p>
 
             <p style={{outlineStyle: 'solid', textAlign: 'center'}}> #DIST, 2,Hamster,Pouch [13]</p>
 

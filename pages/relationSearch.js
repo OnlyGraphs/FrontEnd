@@ -58,6 +58,9 @@ function relationSearch() {
   if (loadingError) {
     return(
         <div>
+            <Head>
+              <title>Only Graphs - Error Loading</title>
+            </Head>
             <img onClick={() => goToIndex(router)} width={144} height={81} src='./static/coolLogo.png'/>
             <p>
                 There has been an error attempting to fetch your request. You can find more details in the console.<br/>
@@ -76,6 +79,9 @@ function relationSearch() {
     if (graphData.nodes.length == 0) {
       return(
         <div>
+          <Head>
+            <title>Only Graphs - Relational Search Results</title>
+          </Head>
         <RelationSearch 
           root={root} 
           hops={hops} 
@@ -96,6 +102,9 @@ function relationSearch() {
     } else {
       return (
         <div>
+          <Head>
+              <title>Only Graphs - Loading</title>
+          </Head>
         <RelationSearch 
           root={root} 
           hops={hops} 
