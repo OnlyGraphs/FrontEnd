@@ -103,7 +103,7 @@ function relationSearch() {
       return (
         <div>
           <Head>
-              <title>Only Graphs - Loading</title>
+              <title>Only Graphs - Relational Search Results</title>
           </Head>
         <RelationSearch 
           root={root} 
@@ -128,6 +128,7 @@ function relationSearch() {
       <div>
         <Head>
           <style>{'body { background-color: #d2d2d2; }'}</style>
+          <title>Only Graphs - Loading</title>
         </Head>
         <div style={{display: 'flex', justifyContent: 'center'}}>
             <video src='./static/loadingSpin.mp4' width='960' height={540} loop={true} autoPlay={true}></video>
@@ -243,6 +244,10 @@ function returnFeedback(query, resultTitle) {
  */
 function returnToSearchResults(root, router) {
   router.push("/search?query=" + root)
+}
+
+function goToIndex(router) {
+  router.push("/")
 }
 
 export default relationSearch
