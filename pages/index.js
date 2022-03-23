@@ -13,17 +13,44 @@ function Home() {
     //Sets variables for client side data fetching, fetches the data to be used in the autocomplete
     const [titles, setTitles] = useState(null)
     const [isLoading, setLoading] = useState(false)
+    const [loadingError, setLoadingError] = useState(false)
 
     //Gets title data
     useEffect(() => {
       setLoading(true)
         fetch(process.env.NEXT_PUBLIC_BACKEND + "/static/articleTitles.txt")
-        .then((res) => res.text())
+        .then((res) => {
+          if (res.status != 200) {
+              setLoadingError(true)
+          }
+          return res.text()
+        })
         .then((data) => {
             setTitles(data.split("\n"))
             setLoading(false)
         })
     }, [])
+
+  if (loadingError) {
+    return(
+      <div>
+          <Head>
+              <title>OnlyGraphs - Error Loading</title>
+          </Head>
+          <Link href="/">
+              <img width={144} height={81} src='./static/coolLogo.png'/>
+          </Link>
+          <p>
+              There has been an error attempting to fetch your request. You can find more details in the console. You can return to the main page by clicking the logo above.
+              <br/> 
+              <h4>Error:</h4>
+              {data}
+              <br/><br/>
+              If the error is a parsing error ensure you're request is correctly formatted, you can see <a href="/advancedQueries">here</a> for details on how to format queries.
+          </p>
+      </div>
+  )
+  }
 
   if (!isLoading && titles !=null) { //Once the client side fetching is complete the main welcome page can be displayed //Colour: #dfdfdf
     return (

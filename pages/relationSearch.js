@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import RelationResultsWindow from '../components/RelationalResultsWindow';
 import nodeConst from 'react-d3-graph/lib/components/node/node.const';
 import RelationSearch from '../components/RelationSearch';
-import { Card, Typography, CardContent } from '@mui/material';
+import { Card, Typography, CardContent, Link } from '@mui/material';
 
 /**
  * The results page for relational searches
@@ -67,8 +67,10 @@ function relationSearch() {
             <p>
                 There has been an error attempting to fetch your request. You can find more details in the console. You can return to the main page by clicking the logo above.
                 <br/> 
-                Error: 
+                <h4>Error:</h4>
                 {data}
+                <br/><br/>
+                If the error is a parsing error ensure you're request is correctly formatted, you can see <a href="/advancedQueries"> here</a> for details on how to format queries.
             </p>
         </div>
     )
