@@ -179,7 +179,7 @@ function convertNode(node, maxSize) {
   return {
     id: node.title,
     color: colour,
-    size: 100 +400 * node.score/maxSize
+    size: 100 * Math.log2(node.score * 4 + 1) + 1
   }
 }
 
