@@ -66,7 +66,7 @@ function relationSearch() {
                   <img width={144} height={81} src='./static/coolLogo.png'/>
             </Link>
             <p>
-                There has been an error attempting to fetch your request. You can find more details in the console. You can return to the main page by clicking the logo above.
+                There has been an error attempting to fetch your request. You can return to the main page by clicking the logo above.
                 <br/> 
                 <h4>Error:</h4>
                 {data}
