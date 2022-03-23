@@ -3,6 +3,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { useRouter } from 'next/router'
 import AdvancedSearch from '../components/AdvancedSearch';
+import { Link } from '@mui/material';
 
 /**
  * The advanced search page, mostly just a page for the AdvancedSearch component which contains
@@ -15,6 +16,9 @@ function Advanced() {
         <Head>
             <title>OnlyGraphs - Advanced Search</title>
         </Head>
+        <Link href="/">
+            <img width={144} height={81} src='./static/coolLogo.png'/>
+        </Link>
         <AdvancedSearch callback={(query) => makeRequest(query, null, null, null, router)}></AdvancedSearch>
         </div>
     )
