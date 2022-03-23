@@ -18,6 +18,8 @@ function Home() {
     //Gets title data
     useEffect(() => {
       setLoading(true)
+      setLoadingError(false)
+      setTitles(null)
         fetch(process.env.NEXT_PUBLIC_BACKEND + "/static/articleTitles.txt")
         .then((res) => {
           if (res.status != 200) {
