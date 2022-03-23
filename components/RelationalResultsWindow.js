@@ -11,7 +11,7 @@ const graphConfig = {
     highlightDegree: 2,
     d3: {
         linkLength: 400,
-        gravity: -200
+        gravity: -100
     },
     node: {
         labelPosition: "top"
