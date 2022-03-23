@@ -70,7 +70,7 @@ function relationSearch() {
                 <h4>Error:</h4>
                 {data}
                 <br/><br/>
-                If the error is a parsing error ensure you're request is correctly formatted, you can see <a href="/advancedQueries"> here</a> for details on how to format queries.
+                If the error is a parsing error ensure you're request is correctly formatted, you can see <a href="/advancedQueries" target="_blank" rel="noopener"> here</a> for details on how to format queries.
             </p>
         </div>
     )
