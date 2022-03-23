@@ -41,7 +41,6 @@ function relationSearch() {
         .then((res) => {
           if (res.status != 200) {
               setLoadingError(true)
-              console.log(res.text())
           }
           return res.text()
         })        
@@ -67,6 +66,8 @@ function relationSearch() {
             </Link>
             <p>
                 There has been an error attempting to fetch your request. You can find more details in the console. You can return to the main page by clicking the logo above.
+                <br/> 
+                Error: 
                 {data}
             </p>
         </div>
