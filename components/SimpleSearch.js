@@ -80,8 +80,6 @@ class SimpleSearch extends React.Component {
         <div>
           <Stack
             direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
             spacing={2}
           >
             <Autocomplete
