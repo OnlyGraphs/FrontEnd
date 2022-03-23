@@ -1,15 +1,24 @@
 import Head from 'next/head'
 import ReactDOM from 'react-dom';
 import React, { useState, useEffect } from 'react';
+import { Link, Stack } from '@mui/material';
+import { useRouter } from 'next/router';
+
 
 function advancedQueries() {
-
+    const router = useRouter()
 
     return (
         <div>
             <Head>
               <title>Only Graphs - Advanced Query Writing</title>
             </Head>
+            <Link href="/">
+                <Stack>
+              <img width={144} height={81} src='./static/coolLogo.png'/>
+              <a href="/advanced">Return to Advanced Search</a>
+              </Stack>
+            </Link>
             <h3>A simple guide to using advanced queries</h3>
                 
                 <p>Instead of just searching for single words and phrases, OnlyGraphs allows users to compose advanced queries that allow users to narrow down and improve their search results.These advanced queries include binary and unary queries, relational queries, structural queries and linked queries. Subqueries can be simple terms, or complex queries. </p>
