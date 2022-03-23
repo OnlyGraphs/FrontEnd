@@ -79,6 +79,13 @@ class AdvancedSearch extends React.Component {
   buildFinalResult() {
     var individualBoxResults = [] //Contains the queries for each individual input, these are combined at the end of the method
 
+    if (this.state.noneBox != "") {
+      var validTerms = this.state.noneBox.split(" ").filter(term => term != "" && term != " ")
+      var validTerms = validTerms.map(term => "NOT," + term)
+      var notString = this.arrayFold(validTerms, ",AND,")
+      individualBoxResults.push(notString)
+    }
+
     if (this.state.andBox != "") { //First checks if any data has been entered into the input
       var validTerms = this.state.andBox.split(" ").filter(term => term != "" && term != " ") //Splits out values and removes any empty string/spaces
       var andString = this.arrayFold(validTerms, ",AND,") //Folds them with AND which is this inputs operator
@@ -87,13 +94,6 @@ class AdvancedSearch extends React.Component {
 
     if (this.state.phraseBox != "") {
       individualBoxResults.push("\"" + this.state.phraseBox + "\"")
-    }
-
-    if (this.state.noneBox != "") {
-      var validTerms = this.state.noneBox.split(" ").filter(term => term != "" && term != " ")
-      var validTerms = validTerms.map(term => "NOT," + term)
-      var notString = this.arrayFold(validTerms, ",AND,")
-      individualBoxResults.push(notString)
     }
 
     if (this.state.orBox != "") {
